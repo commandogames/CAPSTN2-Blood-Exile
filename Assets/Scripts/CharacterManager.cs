@@ -29,6 +29,10 @@ public class CharacterManager : MonoBehaviour
             character.GetComponent<Movements>().navmesh.enabled = false;
             character.GetComponent<Movements>().dead = true;
             character.GetComponent<Movements>().HP = 0;
+            if (character == myChars[myChars.Count - 1])
+            {
+                leader_indexer = 0;
+            }
             deadCharacaters.Add(character);
             myChars.Remove(character);
             
@@ -68,7 +72,6 @@ public class CharacterManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Change Leader"))
         {
-            //Characters[leader_indexer - 1].GetComponent<Movements>().isLeader = false;
             if (myChars.Count > 1)
                 leader_indexer += 1;
         }
