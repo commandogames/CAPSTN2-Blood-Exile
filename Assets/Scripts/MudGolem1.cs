@@ -244,7 +244,7 @@ public class MudGolem1 : MonoBehaviour {
 			isdead= true;
 
 		}
-		Debug.Log (deathcounter);
+		//Debug.Log (deathcounter);
 		if (deathcounter > 0.2 && isdead) {
 			Destroy(this.gameObject);	
 		}

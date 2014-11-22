@@ -336,7 +336,8 @@ public class Movements : MonoBehaviour
 			if (dist >= 10.0f)
 			{
 				navmesh.stoppingDistance = 5.0f;
-				navmesh.SetDestination(characterManager.selectedLeader.transform.position);
+                if(dead == false)
+				    navmesh.SetDestination(characterManager.selectedLeader.transform.position);
 			}
 			else //search for enemies using Physics.OverlapSphere
 			{

@@ -74,7 +74,7 @@ public class EnemyMovement : MonoBehaviour
 
 			if(target != null)
 			{
-                Debug.Log(target.name);
+                //Debug.Log(target.name);
 				player = target.transform;
 				nav.SetDestination(player.transform.position);
                
@@ -131,7 +131,7 @@ public class EnemyMovement : MonoBehaviour
             if (Vector3.Distance(player.transform.position, this.transform.position) < 2.5f)
             {
                 attackTimer += Time.deltaTime;
-                Debug.Log(Vector3.Distance(player.transform.position, transform.position));
+                //Debug.Log(Vector3.Distance(player.transform.position, transform.position));
                 
                 
                 randomIndex = Random.Range(0, 10);

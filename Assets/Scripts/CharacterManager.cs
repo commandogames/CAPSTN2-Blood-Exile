@@ -26,8 +26,12 @@ public class CharacterManager : MonoBehaviour
         if (myChars.Count >= 1)
         {
             //moves selected leader to dead character pool
+            character.GetComponent<Movements>().navmesh.enabled = false;
+            character.GetComponent<Movements>().dead = true;
+            character.GetComponent<Movements>().HP = 0;
             deadCharacaters.Add(character);
             myChars.Remove(character);
+            
         }
 
     }
@@ -37,9 +41,11 @@ public class CharacterManager : MonoBehaviour
         Debug.Log(deadCharacaters[0].name.ToString());
         deadCharacaters[0].GetComponent<Movements>().HP = deadCharacaters[0].GetComponent<Movements>().maxHp;
         deadCharacaters[0].GetComponent<Movements>().dead = false;
+        deadCharacaters[0].GetComponent<Movements>().navmesh.enabled = true;
         //returns latest player who died back to character selection
         myChars.Add(deadCharacaters[0]);
         deadCharacaters.Remove(deadCharacaters[0]);
+        
 
     }
 
@@ -84,7 +90,7 @@ public class CharacterManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-
+            RemoveFromCharacterPool(selectedLeader);
         }
 
         if (Input.GetKeyDown(KeyCode.R)) //revive last person who died
