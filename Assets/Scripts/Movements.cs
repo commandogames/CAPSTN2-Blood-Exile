@@ -101,7 +101,9 @@ public class Movements : MonoBehaviour
 		originalSpeed = speed;
 		BSUi = GameObject.Find("BloodSurge");
 	}
-	
+
+    public Transform respawnPoint;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -118,8 +120,8 @@ public class Movements : MonoBehaviour
 		playerHp = GameObject.Find ("Health");
 		
 		HP = maxHp;
-		
-		
+
+        respawnPoint = GameObject.Find("RespawnPoint").transform;
 		//Particle Emission of Skills
 		//		Mage_AlleviateHealParticle.GetComponent<ParticleSystem>().enableEmission = false;
 		//		
@@ -255,8 +257,12 @@ public class Movements : MonoBehaviour
 
     [SerializeField]
     float vert, hori;
+
+    
 	void Movement()
 	{
+
+        
         if (Input.GetKeyDown(KeyCode.L))
         {
             animator.SetTrigger("Hurt");

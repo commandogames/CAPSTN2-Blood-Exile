@@ -14,10 +14,12 @@ public class CharacterManager : MonoBehaviour
     public List<GameObject> deadCharacaters = new List<GameObject>();
     public int mycharscount;
     public bool allDead = false;
+
+    public Transform respawnPoint;
     // Use this for initialization
     void Start()
     {
-       
+        respawnPoint = GameObject.Find("RespawnPoint").transform;
     }
 
 
@@ -29,6 +31,7 @@ public class CharacterManager : MonoBehaviour
             character.GetComponent<Movements>().navmesh.enabled = false;
             character.GetComponent<Movements>().dead = true;
             character.GetComponent<Movements>().HP = 0;
+            character.transform.position = new Vector3(1000, 1000, 1000);
 
             if (character == myChars[myChars.Count - 1])
             {
@@ -48,6 +51,7 @@ public class CharacterManager : MonoBehaviour
         deadCharacaters[0].GetComponent<Movements>().HP = deadCharacaters[0].GetComponent<Movements>().maxHp;
         deadCharacaters[0].GetComponent<Movements>().dead = false;
         deadCharacaters[0].GetComponent<Movements>().navmesh.enabled = true;
+        deadCharacaters[0].transform.position = respawnPoint.transform.position;
         //returns latest player who died back to character selection
         myChars.Add(deadCharacaters[0]);
         deadCharacaters.Remove(deadCharacaters[0]);
