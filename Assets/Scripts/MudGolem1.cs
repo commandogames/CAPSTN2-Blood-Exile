@@ -5,6 +5,7 @@ using System.Collections;
 
 public class MudGolem1 : MonoBehaviour {
 	public GameObject Golem2;
+    public GameObject GolemDeathParticle;
 	public float HP;
 	public float baseDmg;
 	public float magicDmg;

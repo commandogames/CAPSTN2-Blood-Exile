@@ -20,6 +20,8 @@ public class Mushroom2 : MonoBehaviour {
 			{
 				//life = GameObject.FindGameObjectWithTag ("Hp");
 				//life.GetComponent<PlayerHealth> ().TakeDamage (20);
+                transform.localScale = new Vector3(1.36f, 1.36f, 1.36f);
+
 				life = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
 				//life.GetComponent<PlayerHealth> ().TakeDamage (0.1f);
 				life.GetComponent<Movements>().Hurt(20);

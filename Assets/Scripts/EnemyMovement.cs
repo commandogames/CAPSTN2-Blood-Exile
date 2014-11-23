@@ -21,10 +21,10 @@ public class EnemyMovement : MonoBehaviour
 
 	public float EnemyDamage;
 
-	public void Die()
+/*	public void Die()
 	{
 		Destroy (this.gameObject, 1);
-	}
+	}*/
 
 	void RoamAround()
 	{

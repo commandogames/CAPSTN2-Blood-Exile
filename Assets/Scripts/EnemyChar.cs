@@ -4,7 +4,12 @@ using System.Collections;
 
 
 public class EnemyChar : MonoBehaviour {
-	
+
+    public GameObject GolemDeathParticles;
+    public float instantiateCounter;
+    public bool instantiateActive;
+
+
 	public float HP;
 	public float baseDmg;
 	public float magicDmg;
@@ -28,10 +33,18 @@ public class EnemyChar : MonoBehaviour {
 	public int skills = 2;
 	public int type = 1;
 	
-	public int level = 1; 
+	public int level = 1;
 
 
-	void EnemyType()
+    #region Particle death golem
+    public GameObject GolemDeathParticle;
+    private bool GolemDeathParticleActive;
+    public float GolemDeathParticleTimer;
+    public float GolemDeathDelay;
+    #endregion
+
+
+    void EnemyType()
 	{
 		//Class
 		switch (type) {
@@ -225,24 +238,51 @@ public class EnemyChar : MonoBehaviour {
 		exp = GetComponent<Experience>();
 		//dmgAtk = ((level + 2)* 2 +baseDmg)/ 4 ;
 		expbar = GameObject.FindGameObjectWithTag("Exp");
+
+        GolemDeathParticle.GetComponent<ParticleSystem>().Stop();
+
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frames
 	void Update () {
+
+
+        if (instantiateActive == true)
+        {
+            Vector3 ParticlePosition = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
+
+            Instantiate(GolemDeathParticles, ParticlePosition, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            instantiateCounter = 1;
+            if (instantiateCounter  == 1f)
+            {
+                instantiateActive = false;
+            }
+        }
 		if (HP < 0) {
 			//hpbar.SetActive(false);
 			//exp.GetComponent<Experience>().getExperience(50);
 
-			switch(type)
-			{case 1: 
-			expbar.GetComponent<Experience>().getExperience(30);
-				break;
-			case 4:
-				expbar.GetComponent<Experience>().getExperience(50);
-				break;
-			}
+            instantiateActive = true;
+            GolemDeathDelay += Time.deltaTime;
 
-			Destroy(this.gameObject);
+
+
+            if (GolemDeathDelay > 0.02f)
+            {
+                switch (type)
+                {
+                    case 1:
+                        expbar.GetComponent<Experience>().getExperience(30);
+                        break;
+                    case 4:
+                        expbar.GetComponent<Experience>().getExperience(50);
+                        break;
+                }
+
+                Destroy(this.gameObject);
+            }
+            
+            
 		}
 	}
 }

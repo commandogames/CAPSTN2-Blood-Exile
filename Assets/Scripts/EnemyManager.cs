@@ -4,8 +4,10 @@ public class EnemyManager : MonoBehaviour
 {
 	public PlayerHealth playerHealth;
 	public GameObject enemy;
-	public float spawnTime = 3f;
+	public float spawnTime = 10f;
 	public Transform[] spawnPoints;
+
+    public GameObject golemParticleSpawner;
 
 	
 	void Start ()
@@ -25,6 +27,7 @@ public class EnemyManager : MonoBehaviour
 		
 		int spawnPointIndex = Random.Range (0, spawnPoints.Length);
 		
+        Instantiate(golemParticleSpawner, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 		Instantiate (enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 	}
 }
