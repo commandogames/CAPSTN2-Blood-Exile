@@ -17,7 +17,7 @@ public class CharacterManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+       
     }
 
 
@@ -29,10 +29,12 @@ public class CharacterManager : MonoBehaviour
             character.GetComponent<Movements>().navmesh.enabled = false;
             character.GetComponent<Movements>().dead = true;
             character.GetComponent<Movements>().HP = 0;
+
             if (character == myChars[myChars.Count - 1])
             {
                 leader_indexer = 0;
             }
+
             deadCharacaters.Add(character);
             myChars.Remove(character);
             
