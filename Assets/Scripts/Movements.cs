@@ -70,6 +70,9 @@ public class Movements : MonoBehaviour
 	public GameObject Mage_AlleviateHealParticle;
     public GameObject Mage_GravelSwainParticle;
     public GameObject Mage_OutburstParticle;
+    public GameObject Mage_NormalAttackParticleIns;
+
+    public Vector3 Mage_Position;
 
     private bool Mage_GravelSwainActive;
     private bool Mage_OutburstActive;
@@ -677,8 +680,12 @@ public class Movements : MonoBehaviour
 				normalAttackTimer += Time.deltaTime;
 				if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.G))
 				{
+                
                     Mage_NormalAttackParticle.GetComponent<ParticleSystem>().Play();
-                    Mage_NormalAttackActive = true;
+                   Mage_NormalAttackActive = true;
+                   
+                    //Mage_Position = transform.position;
+                //    Instantiate(Mage_NormalAttackParticleIns, Mage_Position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 					//Debug.Log("GG");
 					InflictDamage(100, this.transform.position, 0.9f);
 					animator.SetFloat("Fighter_AttackCooldown", normalAttackTimer);

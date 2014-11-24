@@ -79,6 +79,7 @@
      <Compile Include="Assets\Scripts\MudGolem1.cs" />
      <Compile Include="Assets\Scripts\MudGolem2.cs" />
      <Compile Include="Assets\Scripts\MudGolem3.cs" />
+     <Compile Include="Assets\Scripts\MudGolemSpawner.cs" />
      <Compile Include="Assets\Scripts\Mushroom.cs" />
      <Compile Include="Assets\Scripts\Mushroom2.cs" />
      <Compile Include="Assets\Scripts\PathBoss.cs" />
