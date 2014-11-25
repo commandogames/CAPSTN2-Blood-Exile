@@ -31,7 +31,7 @@ public class CharacterManager : MonoBehaviour
             character.GetComponent<Movements>().navmesh.enabled = false;
             character.GetComponent<Movements>().dead = true;
             character.GetComponent<Movements>().HP = 0;
-            character.transform.position = new Vector3(1000, 1000, 1000);
+            //character.transform.position = new Vector3(1000, 1000, 1000);
 
             if (character == myChars[myChars.Count - 1])
             {
