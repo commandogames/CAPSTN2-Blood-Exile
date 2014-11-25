@@ -37,9 +37,7 @@ public class EnemyChar : MonoBehaviour {
 
 
     #region Particle death golem
-    public GameObject GolemDeathParticle;
-    private bool GolemDeathParticleActive;
-    public float GolemDeathParticleTimer;
+  
     public float GolemDeathDelay;
     #endregion
 
@@ -238,8 +236,6 @@ public class EnemyChar : MonoBehaviour {
 		exp = GetComponent<Experience>();
 		//dmgAtk = ((level + 2)* 2 +baseDmg)/ 4 ;
 		expbar = GameObject.FindGameObjectWithTag("Exp");
-
-        GolemDeathParticle.GetComponent<ParticleSystem>().Stop();
 
 	}
 	
