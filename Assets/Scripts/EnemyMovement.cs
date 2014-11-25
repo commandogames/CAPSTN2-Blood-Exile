@@ -68,8 +68,8 @@ public class EnemyMovement : MonoBehaviour
 
             if (collide.gameObject.tag == "Player")
             {
+				if(collide.gameObject.GetComponent<Movements>().HP > 0)
                 target = collide.gameObject;
-
             }    
 
 			if(target != null)
@@ -122,7 +122,7 @@ public class EnemyMovement : MonoBehaviour
             SearchForTarget();
         }
 
-        else
+		else if(player != null && player.tag == "Player")
 		{
 			Target = player.gameObject;
             nav.SetDestination(player.transform.position);
@@ -167,7 +167,8 @@ public class EnemyMovement : MonoBehaviour
 
 
 
-				else{
+				else if(player != null && player.tag == "Player")
+				{
                 if (attackTimer >= rate)
                 {
                     if (randomIndex < 2)
@@ -191,6 +192,10 @@ public class EnemyMovement : MonoBehaviour
 
             }
 
+		}		
+			else		
+				player = null;
+
             //Debug.Log(Vector3.Distance(this.transform.position, player.transform.position));
             //if (Vector3.Distance(this.transform.position, player.transform.position) < 1.0f)
             //{
@@ -200,7 +205,7 @@ public class EnemyMovement : MonoBehaviour
             //{
             //    Debug.Log("Malayo. Lapit ka muna");
             //}
-        }
+        
         //else
         //{
         //    if (Vector3.Magnitude(player.transform.position - transform.position) > radius)

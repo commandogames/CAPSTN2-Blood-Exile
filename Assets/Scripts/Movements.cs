@@ -12,12 +12,12 @@ public enum CharacterClass
 public class Movements : MonoBehaviour
 {
 	public GameObject enemy;
-	
+	int ManaCost;
 	public CharacterClass characterClass;
-	
+	public GameObject EnemyImage;
 	public bool isLeader;
 	public Animator animator;
-	
+	public int Mana;
 	public Vector3 direction;
 	public CharacterController characterController;
 	public Vector3 moveDirection;
@@ -96,6 +96,8 @@ public class Movements : MonoBehaviour
 
     void Awake()
 	{
+		Mana = 100;		    
+		EnemyImage = GameObject.Find ("EnemyImage");
 		enemyHPSlider = GameObject.Find("EnemyHealth").GetComponent<Slider>();
 		enemyHealthObject = enemyHPSlider.gameObject;
 		originalSpeed = speed;
@@ -107,10 +109,11 @@ public class Movements : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-
+		Mana = 100; 
 		BSUi.SetActive(false);
 		enemyHealthObject.SetActive(false);	
-		
+		EnemyImage.SetActive (false);
+
 		animator = GetComponent<Animator>();
 		characterController = GetComponent<CharacterController>();
 		characterManager = GameObject.Find("Character Manager").GetComponent<CharacterManager>();
@@ -152,7 +155,8 @@ public class Movements : MonoBehaviour
 		//enemyHealthObject.SetActive(false);	
 		
 		if (enemyHPSlider.value == 0) {
-			enemyHealthObject.SetActive(false);			
+			enemyHealthObject.SetActive(false);	
+			EnemyImage.SetActive(false);
 		}
 		
 		if (skillActive) {
@@ -182,6 +186,8 @@ public class Movements : MonoBehaviour
 		{
 			if (HP <= 0)
 			{
+				animator.SetTrigger("Dead");
+				gameObject.tag = "Dead";
 				characterManager.RemoveFromCharacterPool(gameObject);
 				dead = true;
 			}
@@ -191,6 +197,7 @@ public class Movements : MonoBehaviour
 		{
 			if (this.HP > 0)
 			{
+				gameObject.tag = "Player";
 				dead = false;
 			}
 		}
@@ -395,20 +402,26 @@ public class Movements : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1")) ///skill 1
 				{
+					ManaCost = 30;
+					if(Mana >= ManaCost)
+					{
 					Knight_bloodSurgeParticle.GetComponent<ParticleSystem>().Play();
 					animator.SetTrigger("Skill 1");
 					Knight_bloodSurgeActive = true;
-					
+					Mana -= ManaCost;
 					skillActive = true;
+					}
 					
 					
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
+					SkillAttack(this.transform.position, 0.9f, 2);
 					animator.SetTrigger("Skill 2");
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
+					SkillAttack(this.transform.position, 0.9f, 3);
 					animator.SetTrigger("Skill 3");
 				}
 			}
@@ -446,14 +459,17 @@ public class Movements : MonoBehaviour
 				if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1")) ///skill 1
 				{
 					//Debug.Log("Skill 1");
+					SkillAttack(this.transform.position, 0.9f, 4);
 					animator.SetTrigger("Skill 1");
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
+					SkillAttack(this.transform.position, 0.9f, 5);
 					animator.SetTrigger("Skill 2");
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
+					SkillAttack(this.transform.position, 0.9f, 6);
 					animator.SetTrigger("Skill 3");
 				}
 			}
@@ -542,18 +558,21 @@ public class Movements : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1"))///skill 1
 				{
                     Mage_GravelSwainParticle.GetComponent<ParticleSystem>().Play();
+					SkillAttack(this.transform.position, 0.9f, 7);
 					animator.SetTrigger("Skill 1");
                     Mage_GravelSwainActive = true;	
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
                     Mage_OutburstParticle.GetComponent<ParticleSystem>().Play();
+					SkillAttack(this.transform.position, 5, 8);
 					animator.SetTrigger("Skill 2");
                     Mage_OutburstActive = true;
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
                     Mage_AlleviateHealParticle.GetComponent<ParticleSystem>().Play();
+					SkillAttack(this.transform.position, 0.9f, 9);
 					animator.SetTrigger("Skill 3");
                     Mage_AlleviateHealActive = true;
 				}
@@ -779,6 +798,7 @@ public class Movements : MonoBehaviour
 
 				enemyHealthObject.SetActive(true);
 				NormalDamage();
+				EnemyImage.SetActive (true);
 
 				if(collide.gameObject.name == "MudGolem 1")
 				{
@@ -805,7 +825,54 @@ public class Movements : MonoBehaviour
 				}
 
 				
+
+
+
+			}		
+				            		
+				        }		
+			    }		
 				
+			    void SkillAttack(Vector3 center, float radius, int skill)		
+		    {		
+			        Collider[] hitColliders = Physics.OverlapSphere(center, radius);		
+			        foreach (Collider collide in hitColliders)		
+			        {		
+				            if (collide.gameObject.tag == "Dummy")		
+					                collide.transform.gameObject.GetComponent<Tutorial_DummyScript>().InflictDamage(100);		
+				            		
+					            		
+				            if (collide.gameObject.tag == "Enemy"){		
+					                	                
+						                enemyHealthObject.SetActive(true);		
+					                EnemyImage.SetActive (true);		
+							
+						                SkillDamage(skill);		
+					                		
+						                if(collide.gameObject.name == "MudGolem 1")		
+						                {		
+							                    collide.transform.gameObject.GetComponent<MudGolem1>().inflictDamage(skillDmg);		
+							                    enemyHPSlider.value = collide.transform.gameObject.GetComponent<MudGolem1>().HP;		
+							                }		
+					                		
+						                else if(collide.gameObject.name == "MudGolem 2(Clone)")		
+						                {		
+							                    collide.transform.gameObject.GetComponent<MudGolem2>().inflictDamage(skillDmg);		
+							                    enemyHPSlider.value = collide.transform.gameObject.GetComponent<MudGolem2>().HP;		
+							                }		
+					                		
+						                else if(collide.gameObject.name == "MudGolem 3(Clone)")		
+						                {		
+							                    collide.transform.gameObject.GetComponent<MudGolem3>().inflictDamage(skillDmg);		
+							                    enemyHPSlider.value = collide.transform.gameObject.GetComponent<MudGolem3>().HP;		
+							                }		
+					                		
+					                else{		
+						                    collide.transform.gameObject.GetComponent<EnemyChar>().inflictDamage(skillDmg);		
+						                    enemyHPSlider.value = collide.transform.gameObject.GetComponent<EnemyChar>().HP;		
+						                    //Debug.Log("DAMAGE: " + enemyHPSlider.value);		
+						                }
+
 				//collide.transform.gameObject.GetComponent<EnemyMovement>().Die();
 				
 				
@@ -906,7 +973,7 @@ public class Movements : MonoBehaviour
 		}
 	}
 	
-	public void SkillDamage(int skilltype)
+	public float SkillDamage(int skilltype)
 	{	int skill = skilltype;
 		switch (skill) 
 		{
@@ -995,7 +1062,7 @@ public class Movements : MonoBehaviour
 		}
 		
 		dmgSkill = ((level + 2) * magicDmg + skillDmg)/4;
-		
+		return skillDmg;
 		//Debug.Log ("Skill Damage " + dmgSkill);
 	}
 	
