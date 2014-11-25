@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Dwarf_Fire.cs" />
      <Compile Include="Assets\Scripts\Dwarf_Water.cs" />
      <Compile Include="Assets\Scripts\EnemyChar.cs" />
+     <Compile Include="Assets\Scripts\EnemyImage.cs" />
      <Compile Include="Assets\Scripts\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\Exp.cs" />

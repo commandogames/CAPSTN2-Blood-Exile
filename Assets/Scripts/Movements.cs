@@ -87,7 +87,7 @@ public class Movements : MonoBehaviour
 
     #endregion
 
-
+	RawImage EImage;
 
     [SerializeField]
     float deadZone;
@@ -102,6 +102,7 @@ public class Movements : MonoBehaviour
 		enemyHealthObject = enemyHPSlider.gameObject;
 		originalSpeed = speed;
 		BSUi = GameObject.Find("BloodSurge");
+
 	}
 
     public Transform respawnPoint;
@@ -799,6 +800,7 @@ public class Movements : MonoBehaviour
 				enemyHealthObject.SetActive(true);
 				NormalDamage();
 				EnemyImage.SetActive (true);
+				EnemyImage.GetComponent<RawImage>().GetComponent<EnemyImage>().EnemyPortrait(collide.gameObject.name);
 
 				if(collide.gameObject.name == "MudGolem 1")
 				{
@@ -838,15 +840,18 @@ public class Movements : MonoBehaviour
 			        Collider[] hitColliders = Physics.OverlapSphere(center, radius);		
 			        foreach (Collider collide in hitColliders)		
 			        {		
+
+		
 				            if (collide.gameObject.tag == "Dummy")		
 					                collide.transform.gameObject.GetComponent<Tutorial_DummyScript>().InflictDamage(100);		
 				            		
 					            		
-				            if (collide.gameObject.tag == "Enemy"){		
-					                	                
+				            if (collide.gameObject.tag == "Enemy"){	
+							
+								
 						                enemyHealthObject.SetActive(true);		
 					                EnemyImage.SetActive (true);		
-							
+									
 						                SkillDamage(skill);		
 					                		
 						                if(collide.gameObject.name == "MudGolem 1")		
@@ -878,6 +883,8 @@ public class Movements : MonoBehaviour
 				
 				
 			}
+
+
 			
 		}
 	}
