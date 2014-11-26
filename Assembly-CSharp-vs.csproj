@@ -49,6 +49,7 @@
      <Compile Include="Assets\Free Assets Download\Elementals\Scripts\OrbitCamera.cs" />
      <Compile Include="Assets\Free Assets Download\Elementals\Scripts\TestParticles.cs" />
      <Compile Include="Assets\Free Assets Download\Mecanim Warrior Anim Free\Script\PlayGUI.cs" />
+     <Compile Include="Assets\Free Assets Download\MoveForward.cs" />
      <Compile Include="Assets\Free Assets Download\XWeaponTrail\Scripts\Spline.cs" />
      <Compile Include="Assets\Free Assets Download\XWeaponTrail\Scripts\SplineControlPoint.cs" />
      <Compile Include="Assets\Free Assets Download\XWeaponTrail\Scripts\VertexPool.cs" />
