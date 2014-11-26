@@ -71,6 +71,8 @@ public class Movements : MonoBehaviour
     public GameObject Mage_GravelSwainParticle;
     public GameObject Mage_OutburstParticle;
     public GameObject Mage_NormalAttackParticleIns;
+    public GameObject Mage_NormalBurst;
+    public Transform WandPos;
 
     public Vector3 Mage_Position;
 
@@ -150,6 +152,7 @@ public class Movements : MonoBehaviour
 
         #endregion 
 
+        WandPos = GameObject.Find("Mage_StaffOrigin").transform;
     }
 	
 	public bool dead = false;
@@ -609,7 +612,14 @@ public class Movements : MonoBehaviour
 		else { }
 		
 	}
-	
+
+    IEnumerator mageNormalAttack(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject burst = (GameObject)Instantiate(Mage_NormalBurst, WandPos.transform.position, transform.rotation);
+        burst.AddComponent<MoveForward>();
+        Destroy(burst, 0.3f);
+    }
 	void AttackMovements()
 	{
 		#region Fighter Attacks
@@ -700,9 +710,12 @@ public class Movements : MonoBehaviour
 				normalAttackTimer += Time.deltaTime;
 				if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.G))
 				{
-                
-                    Mage_NormalAttackParticle.GetComponent<ParticleSystem>().Play();
-                   Mage_NormalAttackActive = true;
+                    //StartCoroutine(mageNormalAttack(0.6f));
+                    GameObject burst = (GameObject)Instantiate(Mage_NormalAttackParticle, WandPos.transform.position, transform.rotation);
+                    Destroy(burst, 1.9f);
+
+                    //Mage_NormalAttackParticle.GetComponent<ParticleSystem>().Play();
+                    //Mage_NormalAttackActive = true;
                    
                     //Mage_Position = transform.position;
                 //    Instantiate(Mage_NormalAttackParticleIns, Mage_Position, Quaternion.Euler(0.0f, 0.0f, 0.0f));

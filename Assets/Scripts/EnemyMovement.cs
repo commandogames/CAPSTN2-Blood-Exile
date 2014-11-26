@@ -6,7 +6,7 @@ public class EnemyMovement : MonoBehaviour
    	[SerializeField] Transform player;
 	//PlayerHealth playerHealth;
 	//EnemyHealth enemyHealth;
-	private NavMeshAgent nav;
+	public NavMeshAgent nav;
      
 
 
@@ -20,7 +20,12 @@ public class EnemyMovement : MonoBehaviour
 	public Animator anim;
 
 	public float EnemyDamage;
+    public bool dead;
 
+
+    
+    public EnemyChar myHp;
+ 
 /*	public void Die()
 	{
 		Destroy (this.gameObject, 1);
@@ -35,7 +40,8 @@ public class EnemyMovement : MonoBehaviour
 			NavMeshHit hit;
 			NavMesh.SamplePosition(randomPosition, out hit, radius, 1);
 			Vector3 finalPosition = hit.position;
-			nav.SetDestination(finalPosition);
+            if(nav.hasPath)
+			    nav.SetDestination(finalPosition);
 			setNewRandomPoint = 0;
 
 		}
@@ -46,6 +52,7 @@ public class EnemyMovement : MonoBehaviour
 		//playerHealth = player.GetComponent <PlayerHealth> ();
 		//enemyHealth = GetComponent <EnemyHealth> ();
 
+        myHp = transform.gameObject.GetComponent<EnemyChar>();
 	}
 
 	void Start()
@@ -113,10 +120,12 @@ public class EnemyMovement : MonoBehaviour
         player.GetComponent<Animator>().SetTrigger("Hurt");
     }
 
-
-
 	void Update ()
 	{
+
+        //dead = (myHp.HP <= 0) ? true : false;
+        //dead = (myHp.HP <= 0) ? true : false;
+        nav.enabled = (dead == false) ? true : false;
 
         if (player == null)
         {
