@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 	void Start()
 	{
 		Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
-		healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+		healthSlider.maxValue = Player.GetComponent<Movements>().maxHp;
 	}
 	
 	void Update ()

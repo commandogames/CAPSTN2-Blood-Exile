@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-
 public class EnemyChar : MonoBehaviour {
 
     public GameObject GolemDeathParticles;
@@ -41,6 +39,7 @@ public class EnemyChar : MonoBehaviour {
     public float GolemDeathDelay;
     #endregion
 
+    public EnemyMovement em;
 
     void EnemyType()
 	{
@@ -236,13 +235,26 @@ public class EnemyChar : MonoBehaviour {
 		exp = GetComponent<Experience>();
 		//dmgAtk = ((level + 2)* 2 +baseDmg)/ 4 ;
 		expbar = GameObject.FindGameObjectWithTag("Exp");
+        em = GetComponent<EnemyMovement>();
 
 	}
-	
+
+    bool dead;
 	// Update is called once per frames
 	void Update () {
 
+        dead = (HP <= 0) ? true : false;
+       
+        if(dead)
+            if (GetComponent<EnemyMovement>())
+            {
+                GetComponent<EnemyMovement>().nav.enabled = false;
+            }
+            else
+                if(GetComponent<MudGolem1>())
+            {
 
+            }
         if (instantiateActive == true)
         {
             Vector3 ParticlePosition = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
