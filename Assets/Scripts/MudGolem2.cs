@@ -5,6 +5,7 @@ using System.Collections;
 
 public class MudGolem2 : MonoBehaviour {
 	public GameObject Golem3;
+	public GameObject Golem_ParticleDeath;
 	public float HP;
 	public float baseDmg;
 	public float magicDmg;
@@ -234,10 +235,11 @@ public class MudGolem2 : MonoBehaviour {
 			
 			//hpbar.SetActive(false);
 			//exp.GetComponent<Experience>().getExperience(50);
-			
+			Vector3 GolemPos = transform.position;
 			Vector3 zRot2 = transform.position + new Vector3(-3,0,0);
 			Vector3 distAway3 = transform.position + new Vector3(3,0,0);
 			
+			Instantiate(Golem_ParticleDeath, GolemPos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 			Instantiate(Golem3, zRot2, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 			Instantiate(Golem3, distAway3, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 			deathcounter = 0;

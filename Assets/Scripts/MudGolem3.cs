@@ -5,6 +5,7 @@ using System.Collections;
 
 public class MudGolem3 : MonoBehaviour {
 
+	public GameObject Golem_ParticleDeath;
 	public float HP;
 	public float baseDmg;
 	public float magicDmg;
@@ -232,7 +233,10 @@ public class MudGolem3 : MonoBehaviour {
 	void Update () {
 		if (HP < 0) {
 			//hpbar.SetActive(false);
+			Vector3 MudGolemPos = transform.position;
+			Instantiate(Golem_ParticleDeath, MudGolemPos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 			exp.GetComponent<Experience>().getExperience(50);
+
 
 			Destroy(this.gameObject);
 			

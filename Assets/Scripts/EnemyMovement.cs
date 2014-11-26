@@ -70,6 +70,7 @@ public class EnemyMovement : MonoBehaviour
             {
 				if(collide.gameObject.GetComponent<Movements>().HP > 0)
                 target = collide.gameObject;
+
             }    
 
 			if(target != null)
@@ -77,12 +78,13 @@ public class EnemyMovement : MonoBehaviour
                 //Debug.Log(target.name);
 				player = target.transform;
 				nav.SetDestination(player.transform.position);
-               
+
 			}
 			else
 			{
 				RoamAround();
 				setNewRandomPoint += Time.deltaTime;
+
 			}
 		}
 	}

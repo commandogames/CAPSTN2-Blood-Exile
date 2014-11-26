@@ -235,10 +235,11 @@ public class MudGolem1 : MonoBehaviour {
 
 			//hpbar.SetActive(false);
 			//exp.GetComponent<Experience>().getExperience(50);
-			
+			Vector3 GolemPos = transform.position;
 			Vector3 zRot2 = transform.position + new Vector3(-3,0,0);
 			Vector3 distAway3 = transform.position + new Vector3(3,0,0);
-			
+
+			Instantiate(GolemDeathParticle, GolemPos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 			Instantiate(Golem2, zRot2, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 			Instantiate(Golem2, distAway3, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 			deathcounter = 0;
