@@ -1,4 +1,5 @@
 ﻿#pragma strict
+public var mainCamera:Transform;
 public var cameraTrs:Transform;
 public var rotSpeed:int = 20;
 public var effectObj:GameObject[];
@@ -8,12 +9,33 @@ private var nowEffectObj:GameObject;
 private var cameraState:String[] = ["Camera move" ,"Camera stop"];
 private var cameraRotCon:int = 1;
 
-function Start () {
+private var num:int = 0;
+private var numBck:int = 0;
+private var initPos:Vector3;
 
+function Start () {
+	initPos = mainCamera.localPosition;
 }
 
 function Update () {
 	if( cameraRotCon == 1)cameraTrs.Rotate(0 ,rotSpeed * Time.deltaTime ,0);
+	
+	if(num > numBck){
+		numBck = num;
+		mainCamera.localPosition.y += 0.05;
+		mainCamera.localPosition.z -= 0.3;
+		
+	}else if(num < numBck){
+		numBck = num;
+		mainCamera.localPosition.y -= 0.05;
+		mainCamera.localPosition.z += 0.3;
+	}else if(num == 0){
+		mainCamera.localPosition.y = initPos.y;
+		mainCamera.localPosition.z = initPos.z;
+	}
+	
+	if(mainCamera.localPosition.y < initPos.y )mainCamera.localPosition.y = initPos.y;
+	if(mainCamera.localPosition.z > initPos.z )mainCamera.localPosition.z = initPos.z;
 }
 
 function  OnGUI(){
@@ -41,6 +63,10 @@ function  OnGUI(){
 			cameraRotCon = 1;
 		}
 	}
+	
+	num = GUI.VerticalSlider(Rect(30, 100, 20, 200), num, 0, 20);
+	
+
 }
 
 function effectOn(){

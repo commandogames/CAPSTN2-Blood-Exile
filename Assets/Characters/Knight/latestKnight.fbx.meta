@@ -694,7 +694,7 @@ ModelImporter:
       name: Knight_Skill3
       takeName: Take 001
       firstFrame: 98
-      lastFrame: 124
+      lastFrame: 108
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

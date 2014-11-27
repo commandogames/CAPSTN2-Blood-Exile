@@ -49,6 +49,7 @@ public class Movements : MonoBehaviour
 	#region Skill Set Variables for Knight
 	public GameObject Sword;
 	public GameObject Knight_bloodSurgeParticle;
+    public GameObject Knight_Skill2Particle;
 
 	private bool Knight_bloodSurgeActive;
 
@@ -423,6 +424,9 @@ public class Movements : MonoBehaviour
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
+                    Vector3 Knight_Pos = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
+
+                    Instantiate(Knight_Skill2Particle, Knight_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 					SkillAttack(this.transform.position, 0.9f, 2);
 					animator.SetTrigger("Skill 2");
 				}

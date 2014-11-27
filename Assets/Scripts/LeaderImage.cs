@@ -33,25 +33,25 @@ public class LeaderImage : MonoBehaviour {
 		switch (type.gameObject.name) {
 		case "Knight": {//Knight
 			LeaderTexture = Resources.Load<Texture>("Knight");
-			Skill1Texture = Resources.Load<Texture>("Knight");
-			Skill2Texture = Resources.Load<Texture>("Knight");
-			Skill3Texture = Resources.Load<Texture>("Knight");
+			Skill1Texture = Resources.Load<Texture>("Skill1_Knight");
+            Skill2Texture = Resources.Load<Texture>("Skill2_Knight");
+            Skill3Texture = Resources.Load<Texture>("Skill3_Knight");
 			break;
 		}
 			
 		case "Fighter": {//Fighter
 			LeaderTexture = Resources.Load<Texture>("fighter");
-			Skill1Texture = Resources.Load<Texture>("fighter");
-			Skill2Texture = Resources.Load<Texture>("fighter");
-			Skill3Texture = Resources.Load<Texture>("fighter");
+            Skill1Texture = Resources.Load<Texture>("Skill1_Fighter");
+            Skill2Texture = Resources.Load<Texture>("Skill2_Fighter");
+            Skill3Texture = Resources.Load<Texture>("Skill3_Fighter");
 			break;
 		}
 			
 		case "Mage": {//Mage
 			LeaderTexture = Resources.Load<Texture>("Mage");
-			Skill1Texture = Resources.Load<Texture>("Mage");
-			Skill2Texture = Resources.Load<Texture>("Mage");
-			Skill3Texture = Resources.Load<Texture>("Mage");
+            Skill1Texture = Resources.Load<Texture>("Skill1_Mage");
+            Skill2Texture = Resources.Load<Texture>("Skill2_Mage");
+            Skill3Texture = Resources.Load<Texture>("Skill3_Mage");
 			break;
 		}
 			/*
