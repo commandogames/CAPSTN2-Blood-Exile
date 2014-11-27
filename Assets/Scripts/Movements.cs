@@ -571,14 +571,20 @@ public class Movements : MonoBehaviour
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
-                    Mage_OutburstParticle.GetComponent<ParticleSystem>().Play();
+                    Vector3 Mage_Pos = transform.position + new Vector3 (0.0f, 0.5f, 0.0f);
+
+                    Instantiate(Mage_OutburstParticle, Mage_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                  //  Mage_OutburstParticle.GetComponent<ParticleSystem>().Play();
 					SkillAttack(this.transform.position, 5, 8);
 					animator.SetTrigger("Skill 2");
                     Mage_OutburstActive = true;
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
-                    Mage_AlleviateHealParticle.GetComponent<ParticleSystem>().Play();
+                    Vector3 Mage_pos1 = transform.position;
+
+                    Instantiate(Mage_AlleviateHealParticle, Mage_pos1, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                   // Mage_AlleviateHealParticle.GetComponent<ParticleSystem>().Play();
 					SkillAttack(this.transform.position, 0.9f, 9);
 					animator.SetTrigger("Skill 3");
                     Mage_AlleviateHealActive = true;
@@ -869,7 +875,7 @@ public class Movements : MonoBehaviour
 				            if (collide.gameObject.tag == "Enemy"){	
 							
 								
-						                enemyHealthObject.SetActive(true);		
+						             enemyHealthObject.SetActive(true);		
 					                EnemyImage.SetActive (true);		
 									
 						                SkillDamage(skill);		
