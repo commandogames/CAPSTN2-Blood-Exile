@@ -12,7 +12,10 @@ public class PlayerHealth : MonoBehaviour
 	public float flashSpeed = 5f;
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 	public GameObject Player;
-	
+	public int PlayerType;
+	public RawImage SubChar1, SubChar2;
+	public Texture SubCTexture1, SCT;
+	public Texture SubCTexture2;
 	
 	Animator anim;
 	AudioSource playerAudio;
@@ -24,6 +27,10 @@ public class PlayerHealth : MonoBehaviour
 	
 	void Awake ()
 	{
+		SubChar1 = GameObject.Find ("Character image 1").GetComponent<RawImage> ();
+		SubChar2 = GameObject.Find ("Character image 2").GetComponent<RawImage> ();
+
+
 		anim = GetComponent <Animator> ();
 		
 		playerAudio = GetComponent <AudioSource> ();
@@ -35,27 +42,172 @@ public class PlayerHealth : MonoBehaviour
 	
 	void Start()
 	{
+		SubChar1 = GameObject.Find ("Character image 1").GetComponent<RawImage> ();
+		SubChar2 = GameObject.Find ("Character image 2").GetComponent<RawImage> ();
 		Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
 		healthSlider.maxValue = Player.GetComponent<Movements>().maxHp;
 	}
 	
 	void Update ()
 	{
-		
-		//healthSlider.maxValue = 150.05f;
-		//Player = GameObject.FindGameObjectWithTag("Leader");
-		
+
+		SubChar1.texture = SubCTexture1;
+		SubChar2.texture = SubCTexture2;
+
+
 		//healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
 		
+		if (PlayerType == 0) {	
+						Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
+
+						switch (Player.gameObject.name) {
+
+						case "Knight":
+								{
+
+										//Player = GameObject.Find("Knight");
+										healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+										healthSlider.value = currentHealth;
+										currentHealth = Player.GetComponent<Movements> ().HP;
+										break;
+								}
+
+						case "Fighter":
+								{
+										// = GameObject.Find("Fighter");
+										healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+										healthSlider.value = currentHealth;
+			
+			
+										currentHealth = Player.GetComponent<Movements> ().HP;
+										break;
+								}
+
+						case "Mage":
+								{ 
+										//Player = GameObject.Find("Mage");
+										healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+										healthSlider.value = currentHealth;
+										currentHealth = Player.GetComponent<Movements> ().HP;
+										break;
+								}
+			
+						}
+				}
+
+			else if (PlayerType == 1) {	
+						Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
+			
+						switch (Player.gameObject.name) {
+				
+						case "Knight":
+								{
+										Player = GameObject.Find ("Fighter");
+										healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+										healthSlider.value = currentHealth;
+										currentHealth = Player.GetComponent<Movements> ().HP;
+										SubCTexture1= Resources.Load<Texture>("fighter");
+										SubCTexture2= Resources.Load<Texture>("Mage");
+										break;
+								}
+				
+						case "Fighter":
+								{
+										Player = GameObject.Find ("Mage");
+										healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+										healthSlider.value = currentHealth;
+										currentHealth = Player.GetComponent<Movements> ().HP;
+										SubCTexture1= Resources.Load<Texture>("Mage");	
+										SubCTexture2= Resources.Load<Texture>("Knight");
+										break;
+								}
+				
+						case "Mage":
+								{ 
+										Player = GameObject.Find ("Knight");
+										healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+										healthSlider.value = currentHealth;
+										currentHealth = Player.GetComponent<Movements> ().HP;
+										SubCTexture1= Resources.Load<Texture>("Knight");
+										SubCTexture2= Resources.Load<Texture>("Fighter");
+										break;
+								}
+				
+						}
+				}
+
+			else if (PlayerType == 2) {	
+				Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
+				
+				switch (Player.gameObject.name) {
+					
+				case "Knight":
+				{
+					Player = GameObject.Find("Mage");
+					healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+					healthSlider.value = currentHealth;
+					currentHealth = Player.GetComponent<Movements> ().HP;
+					SubCTexture2= Resources.Load<Texture>("Mage");
+
+					break;
+				}
+					
+				case "Fighter":
+				{
+					Player = GameObject.Find("Knight");
+					healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+					healthSlider.value = currentHealth;
+					currentHealth = Player.GetComponent<Movements> ().HP;
+					SubCTexture2= Resources.Load<Texture>("Knight");
 		
-		Player = GameObject.Find("Character Manager").GetComponent<CharacterManager>().selectedLeader;
-		//Player = gameObject.GetComponent<CharacterManager>().selectedLeader;
-		healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
-		healthSlider.value = currentHealth;
-		
-		
-		currentHealth = Player.GetComponent<Movements>().HP;
-		
+					break;
+				}
+					
+				case "Mage":
+				{ 
+					Player = GameObject.Find("Fighter");
+					healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+					healthSlider.value = currentHealth;
+					currentHealth = Player.GetComponent<Movements> ().HP;
+					SubCTexture2= Resources.Load<Texture>("fighter");
+			
+					break;
+				}
+					
+				}
+		}
+
+		/*
+		switch(PlayerType){
+		case 0:
+			{
+				Player = GameObject.Find("Knight");
+				healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+				healthSlider.value = currentHealth;
+				currentHealth = Player.GetComponent<Movements>().HP;
+				break;
+			}
+		case 1:
+			{
+			Player = GameObject.Find("Fighter");
+				healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+				healthSlider.value = currentHealth;
+				
+				
+				currentHealth = Player.GetComponent<Movements>().HP;
+				break;
+			}
+		case 2:
+			{
+			Player = GameObject.Find("Mage");
+				healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
+				healthSlider.value = currentHealth;
+				currentHealth = Player.GetComponent<Movements>().HP;
+				break;
+			}
+
+		}
+		*/
 		
 		/*
 		if(damaged)

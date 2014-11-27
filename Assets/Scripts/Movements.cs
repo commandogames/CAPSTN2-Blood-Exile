@@ -877,7 +877,7 @@ public class Movements : MonoBehaviour
 								
 						             enemyHealthObject.SetActive(true);		
 					                EnemyImage.SetActive (true);		
-									
+									EnemyImage.GetComponent<RawImage>().GetComponent<EnemyImage>().EnemyPortrait(collide.gameObject.name);
 						                SkillDamage(skill);		
 					                		
 						                if(collide.gameObject.name == "MudGolem 1")		
