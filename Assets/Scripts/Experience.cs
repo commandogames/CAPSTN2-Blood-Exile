@@ -12,6 +12,7 @@ public class Experience : MonoBehaviour {
 	bool isLevelup = false;
 	// Use this for initialization
 	void Start () {
+		expSlider = GetComponent<Slider> ();
 		level = 1;
 		exp = 0;
 		totalexp = 150;

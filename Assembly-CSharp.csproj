@@ -76,7 +76,9 @@
      <Compile Include="Assets\Scripts\Experience.cs" />
      <Compile Include="Assets\Scripts\FallOff.cs" />
      <Compile Include="Assets\Scripts\GolemParticleDestroyer.cs" />
+     <Compile Include="Assets\Scripts\LeaderImage.cs" />
      <Compile Include="Assets\Scripts\Level1BossBattleStage.cs" />
+     <Compile Include="Assets\Scripts\Mage_HealPartyParticleDestroyer.cs" />
      <Compile Include="Assets\Scripts\Movements.cs" />
      <Compile Include="Assets\Scripts\MudGolem1.cs" />
      <Compile Include="Assets\Scripts\MudGolem2.cs" />
