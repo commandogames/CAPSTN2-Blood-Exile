@@ -61,17 +61,10 @@
      <None Include="Assets\Treasurechest\Read me\readme.txt" />
      <None Include="Assets\Free Assets Download\XWeaponTrail\Shader\xft_displacement_screen.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
-<<<<<<< HEAD
  <HintPath>C:/Users/Benjaiho/Documents/GitHub/CAPSTN2-Blood-Exile/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="Assembly-UnityScript">
  <HintPath>C:/Users/Benjaiho/Documents/GitHub/CAPSTN2-Blood-Exile/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
-=======
- <HintPath>C:/Users/Dale/Desktop/CAPSTN2-Blood-Exile/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
- <Reference Include="Assembly-UnityScript">
- <HintPath>C:/Users/Dale/Desktop/CAPSTN2-Blood-Exile/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
->>>>>>> origin/master
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
