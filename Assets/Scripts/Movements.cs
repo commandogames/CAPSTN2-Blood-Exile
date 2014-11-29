@@ -86,6 +86,8 @@ public class Movements : MonoBehaviour
     public float Mage_OutburstTimer;
     public float Mage_GravelSwainTimer;
     public float Mage_AlleviateHealTimer;
+    public GameObject Mage_NormalAttackCollider;
+
 	#endregion
 
     #region Skill Set Variables for Hunter
@@ -630,6 +632,15 @@ public class Movements : MonoBehaviour
         burst.AddComponent<MoveForward>();
         Destroy(burst, 0.3f);
     }
+
+    IEnumerator delayedRaycast(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject burst = (GameObject)Instantiate(Mage_NormalAttackParticle, WandPos.transform.position, transform.rotation);
+        burst.rigidbody.AddForce(transform.forward * 600);
+    }
+
+   
 	void AttackMovements()
 	{
 		#region Fighter Attacks
@@ -721,16 +732,10 @@ public class Movements : MonoBehaviour
 				if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.G))
 				{
                     //StartCoroutine(mageNormalAttack(0.6f));
-                    GameObject burst = (GameObject)Instantiate(Mage_NormalAttackParticle, WandPos.transform.position, transform.rotation);
-                    Destroy(burst, 1.9f);
+                    //GameObject burst = (GameObject)Instantiate(Mage_NormalAttackParticle, WandPos.transform.position, transform.rotation);
+                    //Destroy(burst, 1.9f);
+                    StartCoroutine(delayedRaycast(0.9f));
 
-                    //Mage_NormalAttackParticle.GetComponent<ParticleSystem>().Play();
-                    //Mage_NormalAttackActive = true;
-                   
-                    //Mage_Position = transform.position;
-                //    Instantiate(Mage_NormalAttackParticleIns, Mage_Position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-					//Debug.Log("GG");
-					InflictDamage(100, this.transform.position, 0.9f);
 					animator.SetFloat("Fighter_AttackCooldown", normalAttackTimer);
 					animator.SetInteger("Fighter_AttackCombo", attackOrder);
 					attackOrder += 1;

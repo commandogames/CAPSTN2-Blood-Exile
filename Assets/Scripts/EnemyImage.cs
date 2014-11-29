@@ -27,7 +27,6 @@ public class EnemyImage : MonoBehaviour {
 
 	public void EnemyPortrait(string type)
 	{
-		Debug.Log (type);
 		enemyType = type;
 
 		switch (enemyType) {

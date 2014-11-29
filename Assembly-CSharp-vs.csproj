@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Knight_skill2ParticleDestroyer.cs" />
      <Compile Include="Assets\Scripts\LeaderImage.cs" />
      <Compile Include="Assets\Scripts\Level1BossBattleStage.cs" />
+     <Compile Include="Assets\Scripts\MageNormalAttack.cs" />
      <Compile Include="Assets\Scripts\Mage_HealPartyParticleDestroyer.cs" />
      <Compile Include="Assets\Scripts\Movements.cs" />
      <Compile Include="Assets\Scripts\MudGolem1.cs" />
