@@ -1,3 +1,5 @@
+#pragma strict
+
 var target : Transform;
 var distance = 10.0;
 

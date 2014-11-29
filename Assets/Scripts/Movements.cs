@@ -121,7 +121,7 @@ public class Movements : MonoBehaviour
 		enemyHealthObject.SetActive(false);	
 		EnemyImage.SetActive (false);
 
-		animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 		characterController = GetComponent<CharacterController>();
 		characterManager = GameObject.Find("Character Manager").GetComponent<CharacterManager>();
 		navmesh = GetComponent<NavMeshAgent>();
@@ -498,7 +498,7 @@ public class Movements : MonoBehaviour
                 //Normal Attack
                 if (Mage_NormalAttackActive == true)
                 {
-                    Mage_NormalAttackTimer += Time.deltaTime;
+                    //Mage_NormalAttackTimer += Time.deltaTime;
 
                     if (Mage_NormalAttackTimer >= 0.8f)
                     {
@@ -509,7 +509,7 @@ public class Movements : MonoBehaviour
 
                 if (Mage_NormalAttackActive == false)
                 {
-                    Mage_NormalAttackParticle.GetComponent<ParticleSystem>().Stop();
+                    //Mage_NormalAttackParticle.GetComponent<ParticleSystem>().Stop();
                     Mage_NormalAttackTimer = 0f;
                 }
 
