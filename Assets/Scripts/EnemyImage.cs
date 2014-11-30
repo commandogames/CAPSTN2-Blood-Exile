@@ -47,6 +47,18 @@ public class EnemyImage : MonoBehaviour {
 			EnemyTexture = Resources.Load<Texture>("MudGolem3");
 			break;
 
+		case "MudGolem 1(Clone)": //Taong Lupa
+			EnemyTexture = Resources.Load<Texture>("MudGolem1");
+			break;
+			
+		case "MudGolem 2(Clone)": //Taong Lupa
+			EnemyTexture = Resources.Load<Texture>("MudGolem2");
+			break;
+			
+		case "MudGolem 3(Clone)": //Taong Lupa
+			EnemyTexture = Resources.Load<Texture>("MudGolem3");
+			break;
+
 		case "SpikeMushroom": //Spikes
 			EnemyTexture = Resources.Load<Texture>("SpikeMushroom");
 			break;

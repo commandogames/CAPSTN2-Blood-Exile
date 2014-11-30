@@ -87,6 +87,8 @@ public class Movements : MonoBehaviour
     public float Mage_GravelSwainTimer;
     public float Mage_AlleviateHealTimer;
     public GameObject Mage_NormalAttackCollider;
+	public bool statenable;
+	public bool applystat = false;
 
 	#endregion
 
@@ -118,6 +120,7 @@ public class Movements : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+
 		Mana = 100; 
 		BSUi.SetActive(false);
 		enemyHealthObject.SetActive(false);	
@@ -162,8 +165,23 @@ public class Movements : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		statenable = GameObject.Find ("Exp").GetComponent<Experience> ().isLevelup; 
+
 		//enemyHealthObject.SetActive(false);	
-		
+
+		if (statenable) {
+			applystat = true;
+		}
+
+		if(applystat)
+		{
+			if(Input.GetKeyDown(KeyCode.P)|| Input.GetKeyDown(KeyCode.I)|| Input.GetButtonDown("Open Inventory"))
+			{
+				CharLevelup();
+				applystat = false;;
+			}
+		}
+
 		if (enemyHPSlider.value == 0) {
 			enemyHealthObject.SetActive(false);	
 			EnemyImage.SetActive(false);
@@ -842,6 +860,11 @@ public class Movements : MonoBehaviour
 					collide.transform.gameObject.GetComponent<MudGolem1>().inflictDamage(dmgAtk);
 					enemyHPSlider.value =  collide.transform.gameObject.GetComponent<MudGolem1>().HP;
 				}
+				else if(collide.gameObject.name == "MudGolem 1(Clone)")
+				{
+					collide.transform.gameObject.GetComponent<MudGolem1>().inflictDamage(dmgAtk);
+					enemyHPSlider.value =  collide.transform.gameObject.GetComponent<MudGolem1>().HP;
+				}
 
 				else if(collide.gameObject.name == "MudGolem 2(Clone)")
 				{
@@ -930,7 +953,8 @@ public class Movements : MonoBehaviour
 	public float magicDmg;
 	public float agi;
 	public float def;
-	
+
+
 	public bool skillActive;
 	
 	float skillCounter;
@@ -1127,10 +1151,25 @@ public class Movements : MonoBehaviour
 		//animator.SetTrigger("Hurt");
 	}
 	
-	public void NormalDamage()
+	public float NormalDamage()
 	{
 		dmgAtk = ((level + 2)* 2 +baseDmg)/ 4 ;
+		return dmgAtk;
 		//Debug.Log ("Normal Damage : " + dmgAtk);
+		
+	}
+
+	void CharLevelup()
+	{
+		
+		maxHp += maxHp * 0.4f;
+		baseDmg += baseDmg * 0.4f;
+		magicDmg += magicDmg * 0.4f;
+		def += def * 0.4f;
+		agi += agi * 0.4f;
+		
+		currentDmg = baseDmg;
+		level += 1;
 		
 	}
 }

@@ -9,7 +9,9 @@ public class Experience : MonoBehaviour {
 	public float tempexp;
 	public GameObject levelup;
 	float counter = 0;
-	bool isLevelup = false;
+	public bool statup = false;
+
+	public bool isLevelup = false;
 	// Use this for initialization
 	void Start () {
 		expSlider = GetComponent<Slider> ();
@@ -41,14 +43,14 @@ public class Experience : MonoBehaviour {
 		if (isLevelup)
 						LevelUp ();
 
-		//getExperience (0.000000000000000000000000000001);
+		//getExperience (0.1f);
 		//Debug.Log ("counter = " + counter);
 	}
 
 
 	void LevelUp()
 	{
-	
+		statup = true;
 		counter += Time.deltaTime;
 		
 		if (counter < 3) {
@@ -62,9 +64,9 @@ public class Experience : MonoBehaviour {
 				}
 	}
 
-	public void getExperience(double expget)
+	public void getExperience(float expget)
 	{	
-		expSlider.value += ((2 * Mathf.Pow (level, 3) + 9 * Mathf.Pow (level, 2) + 61 * level)/6);
+		expSlider.value += ((2 * Mathf.Pow (level, 3) + 9 * Mathf.Pow (level, 2) + expget * level)/6);
 		//Debug.Log("Exp Get: " + expget + "Exp Total " + exp "/" +expSlider.maxValue);
 	}
 }

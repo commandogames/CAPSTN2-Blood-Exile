@@ -11,7 +11,7 @@ public class PlayerMana : MonoBehaviour
 	public float flashSpeed = 5f;
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 	public GameObject Player;
-	
+	public int PlayerType;
 	
 	Animator anim;
 	AudioSource playerAudio;
@@ -28,7 +28,9 @@ public class PlayerMana : MonoBehaviour
 		playerAudio = GetComponent <AudioSource> ();
 		manaSlider = GetComponent<Slider>();
 		//playerShooting = GetComponentInChildren <PlayerShooting> ();
+		manaSlider.maxValue = 100;
 		currentMana = startingMana;
+
 		//currentHealth = 
 	}
 	
@@ -41,26 +43,106 @@ public class PlayerMana : MonoBehaviour
 	void Update ()
 	{
 		
-		//healthSlider.maxValue = 150.05f;
-		//Player = GameObject.FindGameObjectWithTag("Leader");
-		
-		//healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
-		
-		
-		Player = GameObject.Find("Character Manager").GetComponent<CharacterManager>().selectedLeader;
-		//Player = gameObject.GetComponent<CharacterManager>().selectedLeader;
-		//manaSlider.maxValue = Player.GetComponent<Movements> ().Mana;
-		manaSlider.value = currentMana;
-		currentMana = Player.GetComponent<Movements>().Mana;
-		
-		
-		
-		if (Input.GetKeyDown (KeyCode.B)) {
-			//TakeDamage(20);
-			Player.GetComponent<Movements>().Hurt(20);
-		}
-	}
+				if (PlayerType == 0) {	
+						Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
+			
+						switch (Player.gameObject.name) {
+				
+						case "Knight":
+								{
+				
+										//Player = GameObject.Find("Knight");
+				 
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+										break;
+								}
+				
+						case "Fighter":
+								{
+										// = GameObject.Find("Fighter");
+
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+										break;
+								}
+				
+						case "Mage":
+								{ 
+										//Player = GameObject.Find("Mage");
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+										break;
+								}
+				
+						}
+				} else if (PlayerType == 1) {	
+						Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
+			
+						switch (Player.gameObject.name) {
+				
+						case "Knight":
+								{
+										Player = GameObject.Find ("Fighter");
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+			
+										break;
+								}
+				
+						case "Fighter":
+								{
+										Player = GameObject.Find ("Mage");
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+										break;
+								}
+				
+						case "Mage":
+								{ 
+										Player = GameObject.Find ("Knight");
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+										break;
+								}
+				
+						}
+				} else if (PlayerType == 2) {	
+						Player = GameObject.Find ("Character Manager").GetComponent<CharacterManager> ().selectedLeader;
+			
+						switch (Player.gameObject.name) {
+				
+						case "Knight":
+								{
+										Player = GameObject.Find ("Mage");
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+				
+										break;
+								}
+				
+						case "Fighter":
+								{
+										Player = GameObject.Find ("Knight");
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+				
+										break;
+								}
+				
+						case "Mage":
+								{ 
+										Player = GameObject.Find ("Fighter");
+										manaSlider.value = currentMana;
+										currentMana = Player.GetComponent<Movements> ().Mana;
+				
+										break;
+								}
+				
+						}
+				}
 	
+		}
 	
 	
 	
