@@ -340,7 +340,7 @@ public class Movements : MonoBehaviour
 				
 				if (characterController.isGrounded)
 				{
-					
+	
 					moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 					moveDirection *= speed;
                     if ((Input.GetAxis("Horizontal") > deadZone || Input.GetAxis("Horizontal") < -deadZone) || (Input.GetAxis("Vertical") > deadZone || Input.GetAxis("Vertical") < -deadZone))
@@ -360,10 +360,16 @@ public class Movements : MonoBehaviour
 				
 				moveDirection = new Vector3(0, 0, 0);
 				speed = 0;
-                //if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-                //{
-                //    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10.0f);
-                //}
+                if (characterClass == CharacterClass.Fighter)
+                {
+                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skill 1") == true)
+                    {
+                        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                        {
+                            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10.0f);
+                        }
+                    }
+                }
 			}
 			characterController.Move(moveDirection * Time.deltaTime);
 		}
