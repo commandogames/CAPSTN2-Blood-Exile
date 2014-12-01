@@ -24,6 +24,8 @@ public class Movements : MonoBehaviour
 	public float speed, originalSpeed;
 	public float gravity;
 	public float rotationSpeed;
+
+    public GameObject DeathParticle_Player;
 	
 	public Transform target;
 	
@@ -37,6 +39,8 @@ public class Movements : MonoBehaviour
 	public GameObject enemyTarget;
 	
 	public Manager inventoryManager;
+
+   
 	
 	#region Tutorials
 	public bool isTutorial;
@@ -59,6 +63,8 @@ public class Movements : MonoBehaviour
 	
 	#region Skill Set Variables for Fighter
     public GameObject Fist_PunchParticle;
+    public GameObject Fist_Skill3Particle;
+    public GameObject Fist_Skill2Particle;
 
     private bool Fist_PunchParticleActive;
 
@@ -214,6 +220,10 @@ public class Movements : MonoBehaviour
 		{
 			if (HP <= 0)
 			{
+                Vector3 Player_pos = transform.position + new Vector3 (0.0f, 1.0f, 0.0f);
+
+                Instantiate(DeathParticle_Player, Player_pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
 				animator.SetTrigger("Dead");
 				gameObject.tag = "Dead";
 				characterManager.RemoveFromCharacterPool(gameObject);
@@ -501,11 +511,17 @@ public class Movements : MonoBehaviour
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
+                    Vector3 Fist_Pos2 = transform.position + new Vector3(0.0f, 1.0f, 1.0f);
+
+                    Instantiate(Fist_Skill2Particle, Fist_Pos2, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 					SkillAttack(this.transform.position, 0.9f, 5);
 					animator.SetTrigger("Skill 2");
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
+                    Vector3 Fist_Pos = transform.position + new Vector3 (0.0f, 0.5f, 0.0f);
+
+                    Instantiate(Fist_Skill3Particle, Fist_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 					SkillAttack(this.transform.position, 0.9f, 6);
 					animator.SetTrigger("Skill 3");
 				}
