@@ -77,6 +77,7 @@
      <Compile Include="Assets\Scripts\Exp.cs" />
      <Compile Include="Assets\Scripts\Experience.cs" />
      <Compile Include="Assets\Scripts\FallOff.cs" />
+     <Compile Include="Assets\Scripts\Fighter_Skill3_Particle_Destroyer.cs" />
      <Compile Include="Assets\Scripts\Fighter_skill2ParticleDestroyer.cs" />
      <Compile Include="Assets\Scripts\GolemParticleDestroyer.cs" />
      <Compile Include="Assets\Scripts\Knight_skill2ParticleDestroyer.cs" />

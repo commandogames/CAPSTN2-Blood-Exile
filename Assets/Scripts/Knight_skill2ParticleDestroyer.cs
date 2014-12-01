@@ -7,10 +7,12 @@ public class Knight_skill2ParticleDestroyer : MonoBehaviour {
     private bool ParticleDestroyer;
     public float ParticleTimer;
 
+
 	// Use this for initialization
 	void Start () {
 
         ParticleDestroyer = true;
+    
 	}
 	
 	// Update is called once per frame
@@ -20,12 +22,13 @@ public class Knight_skill2ParticleDestroyer : MonoBehaviour {
         if (ParticleDestroyer == true)
         {
             ParticleTimer += Time.deltaTime;
-
-            if (ParticleTimer >= 2)
-            {
-                Destroy(gameObject);
-            }
-
+            if (ParticleTimer >= 1.5)
+        {
+            Destroy(gameObject);
         }
+    
+        }
+
+        
 	}
 }
