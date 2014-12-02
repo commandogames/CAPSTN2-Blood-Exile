@@ -12,12 +12,12 @@ public enum CharacterClass
 public class Movements : MonoBehaviour
 {
 	public GameObject enemy;
-	int ManaCost;
+	float ManaCost;
 	public CharacterClass characterClass;
 	public GameObject EnemyImage;
 	public bool isLeader;
 	public Animator animator;
-	public int Mana;
+	public float Mana;
 	public Vector3 direction;
 	public CharacterController characterController;
 	public Vector3 moveDirection;
@@ -40,8 +40,6 @@ public class Movements : MonoBehaviour
 	
 	public Manager inventoryManager;
 
-   
-	
 	#region Tutorials
 	public bool isTutorial;
 	#endregion
@@ -100,11 +98,10 @@ public class Movements : MonoBehaviour
 
     #region Skill Set Variables for Hunter
 
-
     #endregion
 
-	RawImage EImage;
-
+	public int skillPoints;
+	
     [SerializeField]
     float deadZone;
 
@@ -118,7 +115,6 @@ public class Movements : MonoBehaviour
 		enemyHealthObject = enemyHPSlider.gameObject;
 		originalSpeed = speed;
 		BSUi = GameObject.Find("BloodSurge");
-
 	}
 
     public Transform respawnPoint;
@@ -126,6 +122,9 @@ public class Movements : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		KnightO = GameObject.Find ("Knight");
+		FighterO = GameObject.Find ("Fighter");
+		MageO = GameObject.Find("Mage");
 
 		Mana = 100; 
 		BSUi.SetActive(false);
@@ -141,7 +140,7 @@ public class Movements : MonoBehaviour
 		playerHp = GameObject.Find ("Health");
 		
 		HP = maxHp;
-
+		Mana = maxMana;
         respawnPoint = GameObject.Find("RespawnPoint").transform;
 		//Particle Emission of Skills
 		//		Mage_AlleviateHealParticle.GetComponent<ParticleSystem>().enableEmission = false;
@@ -171,20 +170,35 @@ public class Movements : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		Debug.Log(skillPoints);
 		statenable = GameObject.Find ("Exp").GetComponent<Experience> ().isLevelup; 
 
 		//enemyHealthObject.SetActive(false);	
 
+
+
 		if (statenable) {
 			applystat = true;
+			skillPoints =5;
 		}
 
-		if(applystat)
-		{
-			if(Input.GetKeyDown(KeyCode.P)|| Input.GetKeyDown(KeyCode.I)|| Input.GetButtonDown("Open Inventory"))
-			{
-				CharLevelup();
-				applystat = false;;
+		else if(applystat)
+		{	if(isLeader){
+				//CharLevelup();
+
+				if(skillPoints > 0 )
+				{
+				if(Input.GetKeyDown(KeyCode.Z))
+					increaseBaseDmg();
+				if(Input.GetKeyDown(KeyCode.X))
+					increaseMagicDmg();
+				if(Input.GetKeyDown(KeyCode.C))
+					increaseAgi();
+				if(Input.GetKeyDown(KeyCode.V))
+					increaseDef();
+				}
+				else 
+					applystat = false;
 			}
 		}
 
@@ -233,6 +247,7 @@ public class Movements : MonoBehaviour
 		
 		if (dead == true)
 		{
+			//Destroy(this.gameObject);
 			if (this.HP > 0)
 			{
 				gameObject.tag = "Player";
@@ -273,21 +288,14 @@ public class Movements : MonoBehaviour
 				navmesh.enabled = true;
 			}
 		}
-		
-		
-		
-		
-		
-		if (regenCounter < 5) {
-			regenCounter += Time.deltaTime;
-			//Debug.Log (regenCounter);
-			
-		} else {
-			regenCounter = 0;
-			regenhp = (HP* 0.005f) + (def * 0.002f);
-			playerHp.GetComponent<PlayerHealth> ().RegenHP (regenhp);
-		}
 
+		regenCounter += Time.deltaTime;
+		//Debug.Log (regenCounter);
+
+		if ( regenCounter > 5 )
+		{
+			Regen();
+		}
 
 
         #region Knight Particle Condition
@@ -430,7 +438,6 @@ public class Movements : MonoBehaviour
                 // 1st Skill
                 if (Knight_bloodSurgeActive == true)
                 {
-
                     Knight_Skill1Timer += Time.deltaTime;
                     if (Knight_Skill1Timer >= 20f)
                     {
@@ -446,7 +453,7 @@ public class Movements : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1")) ///skill 1
 				{
-					ManaCost = 30;
+					ManaCost = 50;
 					if(Mana >= ManaCost)
 					{
 					Knight_bloodSurgeParticle.GetComponent<ParticleSystem>().Play();
@@ -455,21 +462,29 @@ public class Movements : MonoBehaviour
 					Mana -= ManaCost;
 					skillActive = true;
 					}
-					
-					
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
+					ManaCost = 75;
+					if(Mana >= ManaCost)
+					{
                     Vector3 Knight_Pos = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
 
                     Instantiate(Knight_Skill2Particle, Knight_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-					SkillAttack(this.transform.position, 0.9f, 2);
+					//SkillAttack(this.transform.position, 0.9f, 2);
 					animator.SetTrigger("Skill 2");
+						Mana -= ManaCost;
+					}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
+					ManaCost = 120;
+					if(Mana >= ManaCost)
+					{
 					SkillAttack(this.transform.position, 0.9f, 3);
 					animator.SetTrigger("Skill 3");
+						Mana -= ManaCost;
+					}
 				}
 			}
 			//Knight Particle Condition
@@ -505,25 +520,40 @@ public class Movements : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1")) ///skill 1
 				{
+					ManaCost = 85;
+					if(Mana >= ManaCost)
+					{
 					//Debug.Log("Skill 1");
 					SkillAttack(this.transform.position, 0.9f, 4);
 					animator.SetTrigger("Skill 1");
+						Mana -= ManaCost;
+					}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
+					ManaCost = 30;
+					if(Mana >= ManaCost)
+					{
                     Vector3 Fist_Pos2 = transform.position + new Vector3(0.0f, 1.0f, 1.0f);
 
                     Instantiate(Fist_Skill2Particle, Fist_Pos2, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-					SkillAttack(this.transform.position, 0.9f, 5);
+					//SkillAttack(this.transform.position, 0.9f, 5);
 					animator.SetTrigger("Skill 2");
+						Mana -= ManaCost;
+					}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
-                    Vector3 Fist_Pos = transform.position + new Vector3 (0.0f, 0.5f, 0.0f);
+					ManaCost = 105;
+					if(Mana >= ManaCost)
+					{
+                    Vector3 Fist_Pos = transform.position + new Vector3 (0.0f, 2.0f, 0.0f);
 
                     Instantiate(Fist_Skill3Particle, Fist_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-					SkillAttack(this.transform.position, 0.9f, 6);
+					SkillAttack(this.transform.position, 3, 6);
 					animator.SetTrigger("Skill 3");
+						Mana -= ManaCost;
+					}
 				}
 			}
 		}
@@ -610,13 +640,21 @@ public class Movements : MonoBehaviour
                 #endregion
                 if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1"))///skill 1
 				{
+					ManaCost = 75;
+					if(Mana >= ManaCost)
+					{
                     Mage_GravelSwainParticle.GetComponent<ParticleSystem>().Play();
 					SkillAttack(this.transform.position, 0.9f, 7);
 					animator.SetTrigger("Skill 1");
-                    Mage_GravelSwainActive = true;	
+                    Mage_GravelSwainActive = true;
+						Mana -= ManaCost;
+					}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
+					ManaCost = 95;
+					if(Mana >= ManaCost)
+					{
                     Vector3 Mage_Pos = transform.position + new Vector3 (0.0f, 0.5f, 0.0f);
 
                     Instantiate(Mage_OutburstParticle, Mage_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
@@ -624,16 +662,23 @@ public class Movements : MonoBehaviour
 					SkillAttack(this.transform.position, 5, 8);
 					animator.SetTrigger("Skill 2");
                     Mage_OutburstActive = true;
+						Mana -= ManaCost;
+					}
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
+					ManaCost = 140;
+					if(Mana >= ManaCost)
+					{
                     Vector3 Mage_pos1 = transform.position;
-
                     Instantiate(Mage_AlleviateHealParticle, Mage_pos1, Quaternion.Euler(0.0f, 0.0f, 0.0f));
                    // Mage_AlleviateHealParticle.GetComponent<ParticleSystem>().Play();
-					SkillAttack(this.transform.position, 0.9f, 9);
+					//SkillAttack(this.transform.position, 0.9f, 9);
 					animator.SetTrigger("Skill 3");
                     Mage_AlleviateHealActive = true;
+						MageHeal();
+						Mana -= ManaCost;
+					}
 				}
 			}
 		}
@@ -691,7 +736,7 @@ public class Movements : MonoBehaviour
 				normalAttackTimer += Time.deltaTime;
 				if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.G))
 				{
-					
+
 					Fist_PunchParticle.GetComponent<ParticleSystem>().Play();
                     Fist_PunchParticleActive = true;
 					InflictDamage(100, this.transform.position, 0.9f);
@@ -771,6 +816,7 @@ public class Movements : MonoBehaviour
 				normalAttackTimer += Time.deltaTime;
 				if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.G))
 				{
+					//Hit();
                     //StartCoroutine(mageNormalAttack(0.6f));
                     //GameObject burst = (GameObject)Instantiate(Mage_NormalAttackParticle, WandPos.transform.position, transform.rotation);
                     //Destroy(burst, 1.9f);
@@ -959,14 +1005,16 @@ public class Movements : MonoBehaviour
 						                }
 
 				//collide.transform.gameObject.GetComponent<EnemyMovement>().Die();
-				
-				
-				
+
 			}
-
-
-			
 		}
+	}
+
+	public void Hit()
+	{
+		EnemyImage.SetActive (true);
+		EnemyImage.GetComponent<RawImage>().GetComponent<EnemyImage>().EnemyPortrait("Empty");
+		enemyHPSlider.gameObject.SetActive(true);
 	}
 	
 	//------------------------------------------------------------------------------------Damage Calculation-----------------------------------------------------------------------
@@ -1000,9 +1048,13 @@ public class Movements : MonoBehaviour
 	public int type = 1;
 	
 	public int level = 1; 
-	
+	public int maxMana;
 	public float regenhp;
-	
+	public float regenmana;
+
+	GameObject KnightO, FighterO, MageO;
+
+
 	void CharType()
 	{
 		//Class
@@ -1010,6 +1062,7 @@ public class Movements : MonoBehaviour
 		case 1: //Knight
 		{
 			maxHp = 420;
+			maxMana = 265;
 			baseDmg = 7;
 			magicDmg = 4;
 			def = 9;
@@ -1023,6 +1076,7 @@ public class Movements : MonoBehaviour
 		case 2: //Fist
 		{
 			maxHp = 380;
+			maxMana = 270;
 			baseDmg = 9;
 			magicDmg = 3;
 			def = 6;
@@ -1036,6 +1090,7 @@ public class Movements : MonoBehaviour
 		case 3: //Mage
 		{
 			maxHp = 290;
+			maxMana = 325;
 			baseDmg = 5;
 			magicDmg = 10;
 			def = 4;
@@ -1049,6 +1104,7 @@ public class Movements : MonoBehaviour
 		case 4: //Hunter
 		{
 			maxHp = 355;
+			maxMana = 295;
 			baseDmg = 6;
 			magicDmg = 6;
 			def = 5;
@@ -1126,10 +1182,9 @@ public class Movements : MonoBehaviour
 		}
 		case 9: //Alleviate Heal
 		{
-			//Heal 		
+			skillDmg = 80 + (magicDmg * 0.55f);
 			break;
 		}
-			
 			//Hunter Skills
 		case 10: //Daze Arrow
 		{
@@ -1154,17 +1209,20 @@ public class Movements : MonoBehaviour
 		//Debug.Log ("Skill Damage " + dmgSkill);
 	}
 	
-	void RegenHP()
+	void Regen()
 	{
-		regenCounter += Time.deltaTime;
-		
-		if ( regenCounter < 5 )
-		{
-			regenhp = (HP* 0.05f) + (def * 0.02f);
-		}
-		playerHp.GetComponent<PlayerHealth> ().RegenHP (regenhp);
+		regenhp = (maxHp* 0.05f) + (def * 0.02f);
+		if ((HP + regenhp) < maxHp) 
+			HP += regenhp; 
+		else 
+			HP = maxHp;
+
+		regenmana = (Mana * 0.07f) + ((magicDmg * 0.05f) + (agi * 0.03f));
+		if ((Mana + regenmana) < maxMana) 
+			Mana += regenmana; 
+		else 
+			Mana = maxMana;
 		regenCounter = 0;
-		
 	}
 	
 	public void Hurt(float dmg)
@@ -1177,21 +1235,58 @@ public class Movements : MonoBehaviour
 	{
 		dmgAtk = ((level + 2)* 2 +baseDmg)/ 4 ;
 		return dmgAtk;
-		//Debug.Log ("Normal Damage : " + dmgAtk);
-		
+		//Debug.Log ("Normal Damage : " + dmgAtk);	
 	}
-
+	
 	void CharLevelup()
-	{
-		
+	{ 
 		maxHp += maxHp * 0.4f;
 		baseDmg += baseDmg * 0.4f;
 		magicDmg += magicDmg * 0.4f;
 		def += def * 0.4f;
 		agi += agi * 0.4f;
-		
 		currentDmg = baseDmg;
-		level += 1;
-		
+	}
+
+	void MageHeal()
+	{
+		if ((KnightO.GetComponent<Movements>().HP + SkillDamage (9)) < KnightO.GetComponent<Movements>().maxHp) 
+			KnightO.GetComponent<Movements>().HP += SkillDamage (9);
+		else 
+			KnightO.GetComponent<Movements>().HP = KnightO.GetComponent<Movements>().maxHp;
+
+		if ((FighterO.GetComponent<Movements>().HP + SkillDamage (9)) < FighterO.GetComponent<Movements>().maxHp) 
+			FighterO.GetComponent<Movements>().HP += SkillDamage (9);
+		else 
+			FighterO.GetComponent<Movements>().HP = FighterO.GetComponent<Movements>().maxHp;
+
+		if ((MageO.GetComponent<Movements>().HP + SkillDamage (9)) < MageO.GetComponent<Movements>().maxHp) 
+			MageO.GetComponent<Movements>().HP += SkillDamage (9);
+		else 
+			MageO.GetComponent<Movements>().HP = MageO.GetComponent<Movements>().maxHp;
+	}
+
+	void increaseBaseDmg()
+	{
+		baseDmg += 1;
+		skillPoints -= 1;
+	}
+
+	void increaseMagicDmg()
+	{
+		magicDmg += 1;
+		skillPoints -= 1;
+	}
+
+	void increaseDef()
+	{
+		def += 1;
+		skillPoints -= 1;
+	}
+
+	void increaseAgi()
+	{
+		agi += 1;
+		skillPoints -= 1;
 	}
 }

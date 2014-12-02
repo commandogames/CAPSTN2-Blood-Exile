@@ -34,7 +34,7 @@ public class Chest_Open : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Debug.Log("X");
+//            Debug.Log("X");
             animator.SetTrigger("Open");
         }
 	

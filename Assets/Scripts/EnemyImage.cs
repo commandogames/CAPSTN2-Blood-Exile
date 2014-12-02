@@ -35,6 +35,10 @@ public class EnemyImage : MonoBehaviour {
 			EnemyTexture = Resources.Load<Texture>("Golem");
 			break;
 
+		case "Enemy_Golem(Clone)": //Golem
+			EnemyTexture = Resources.Load<Texture>("Golem");
+			break;
+
 		case "MudGolem 1": //Taong Lupa
 			EnemyTexture = Resources.Load<Texture>("MudGolem1");
 			break;
@@ -67,8 +71,9 @@ public class EnemyImage : MonoBehaviour {
 			EnemyTexture = Resources.Load<Texture>("PoisonMushroom");
 			break;
 
-		
+		case "Empty":
+			EnemyTexture = Resources.Load<Texture>("Question-mark");
+			break;
 		}
-
 	}
 }

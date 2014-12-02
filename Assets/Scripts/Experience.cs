@@ -25,13 +25,12 @@ public class Experience : MonoBehaviour {
 
 		levelup.SetActive (false);
 	}
-
+	 	 
 	// Update is called once per frame
 	void Update () {
 
 
 	if (expSlider.value >= totalexp) {
-
 						tempexp = totalexp;
 						level += 1;
 						expSlider.minValue = tempexp;
@@ -39,20 +38,17 @@ public class Experience : MonoBehaviour {
 						expSlider.maxValue = totalexp;
 			isLevelup = true;
 				}
-
 		if (isLevelup)
-						LevelUp ();
+					LevelUp ();
 
 		//getExperience (0.1f);
 		//Debug.Log ("counter = " + counter);
 	}
 
-
 	void LevelUp()
 	{
 		statup = true;
 		counter += Time.deltaTime;
-		
 		if (counter < 3) {
 						levelup.SetActive (true);
 				}
@@ -69,4 +65,5 @@ public class Experience : MonoBehaviour {
 		expSlider.value += ((2 * Mathf.Pow (level, 3) + 9 * Mathf.Pow (level, 2) + expget * level)/6);
 		//Debug.Log("Exp Get: " + expget + "Exp Total " + exp "/" +expSlider.maxValue);
 	}
+
 }

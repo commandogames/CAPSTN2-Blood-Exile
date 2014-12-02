@@ -6,7 +6,7 @@ public class PlayerMana : MonoBehaviour
 {
 	public int startingMana = 100;
 	
-	public int currentMana;
+	public float currentMana;
 	public Slider manaSlider;
 	public float flashSpeed = 5f;
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
@@ -52,7 +52,7 @@ public class PlayerMana : MonoBehaviour
 								{
 				
 										//Player = GameObject.Find("Knight");
-				 
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 										break;
@@ -61,7 +61,7 @@ public class PlayerMana : MonoBehaviour
 						case "Fighter":
 								{
 										// = GameObject.Find("Fighter");
-
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 										break;
@@ -70,6 +70,7 @@ public class PlayerMana : MonoBehaviour
 						case "Mage":
 								{ 
 										//Player = GameObject.Find("Mage");
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 										break;
@@ -84,6 +85,7 @@ public class PlayerMana : MonoBehaviour
 						case "Knight":
 								{
 										Player = GameObject.Find ("Fighter");
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 			
@@ -93,6 +95,7 @@ public class PlayerMana : MonoBehaviour
 						case "Fighter":
 								{
 										Player = GameObject.Find ("Mage");
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 										break;
@@ -101,6 +104,7 @@ public class PlayerMana : MonoBehaviour
 						case "Mage":
 								{ 
 										Player = GameObject.Find ("Knight");
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 										break;
@@ -115,6 +119,7 @@ public class PlayerMana : MonoBehaviour
 						case "Knight":
 								{
 										Player = GameObject.Find ("Mage");
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 				
@@ -124,6 +129,7 @@ public class PlayerMana : MonoBehaviour
 						case "Fighter":
 								{
 										Player = GameObject.Find ("Knight");
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 				
@@ -133,6 +139,7 @@ public class PlayerMana : MonoBehaviour
 						case "Mage":
 								{ 
 										Player = GameObject.Find ("Fighter");
+										manaSlider.maxValue = Player.GetComponent<Movements> ().maxMana;	
 										manaSlider.value = currentMana;
 										currentMana = Player.GetComponent<Movements> ().Mana;
 				

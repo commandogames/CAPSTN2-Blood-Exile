@@ -22,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
 	public float EnemyDamage;
     public bool dead;
 
-
+	public Vector3 direction;
     
     public EnemyChar myHp;
  
@@ -57,6 +57,7 @@ public class EnemyMovement : MonoBehaviour
 
 	void Start()
 	{
+		direction.Set(0, 0, 0);
 		nav = GetComponent <NavMeshAgent> ();
 		randomPosition = Random.insideUnitSphere * radius;
 		anim = GetComponent<Animator> ();
@@ -122,7 +123,7 @@ public class EnemyMovement : MonoBehaviour
 
 	void Update ()
 	{
-
+		anim.SetFloat("Speed", direction.sqrMagnitude);
         //dead = (myHp.HP <= 0) ? true : false;
         //dead = (myHp.HP <= 0) ? true : false;
         nav.enabled = (dead == false) ? true : false;

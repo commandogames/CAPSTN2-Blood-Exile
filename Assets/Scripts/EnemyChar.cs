@@ -273,8 +273,6 @@ public class EnemyChar : MonoBehaviour {
             instantiateActive = true;
             GolemDeathDelay += Time.deltaTime;
 
-
-
             if (GolemDeathDelay > 0.02f)
             {
                 switch (type)
@@ -283,10 +281,9 @@ public class EnemyChar : MonoBehaviour {
                         expbar.GetComponent<Experience>().getExperience(30);
                         break;
                     case 4:
-                        expbar.GetComponent<Experience>().getExperience(50);
+                        expbar.GetComponent<Experience>().getExperience(1000);
                         break;
                 }
-
                 Destroy(this.gameObject);
             }
             

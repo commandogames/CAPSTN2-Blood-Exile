@@ -50,10 +50,8 @@ public class PlayerHealth : MonoBehaviour
 	
 	void Update ()
 	{
-
 		SubChar1.texture = SubCTexture1;
 		SubChar2.texture = SubCTexture2;
-
 
 		//healthSlider.maxValue = Player.GetComponent<Movements> ().maxHp;
 		
