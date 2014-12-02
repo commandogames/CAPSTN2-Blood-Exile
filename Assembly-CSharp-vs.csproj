@@ -77,8 +77,12 @@
      <Compile Include="Assets\Scripts\Exp.cs" />
      <Compile Include="Assets\Scripts\Experience.cs" />
      <Compile Include="Assets\Scripts\FallOff.cs" />
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\FighterSkill2.cs" />
      <Compile Include="Assets\Scripts\Fighter_Skill3ParticleDestroy.cs" />
+=======
+     <Compile Include="Assets\Scripts\Fighter_Skill3_Particle_Destroyer.cs" />
+>>>>>>> origin/master
      <Compile Include="Assets\Scripts\Fighter_skill2ParticleDestroyer.cs" />
      <Compile Include="Assets\Scripts\GolemParticleDestroyer.cs" />
      <Compile Include="Assets\Scripts\KnightSkill2.cs" />
