@@ -1,17 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Movements.cs">
     <Files>
       <File FileName="Assets\Scripts\Experience.cs" Line="68" Column="1" />
-      <File FileName="Assets\Scripts\Movements.cs" Line="1266" Column="79" />
+      <File FileName="Assets\Scripts\Movements.cs" Line="908" Column="15" />
       <File FileName="Assets\Scripts\MageNormalAttack.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EnemyImage.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyChar.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemyChar.cs" Line="267" Column="14" />
       <File FileName="Assets\Scripts\PlayerMana.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PlayerHealth.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Chest_Open.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\KnightSkill2.cs" Line="26" Column="66" />
-      <File FileName="Assets\Scripts\FighterSkill2.cs" Line="19" Column="3" />
+      <File FileName="Assets\Scripts\KnightSkill2.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FighterSkill2.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemyMovement.cs" Line="206" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
