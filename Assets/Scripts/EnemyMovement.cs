@@ -23,7 +23,7 @@ public class EnemyMovement : MonoBehaviour
     public bool dead;
 
 	public Vector3 direction;
-    
+
     public EnemyChar myHp;
  
 /*	public void Die()
@@ -57,6 +57,7 @@ public class EnemyMovement : MonoBehaviour
 
 	void Start()
 	{
+
 		direction.Set(0, 0, 0);
 		nav = GetComponent <NavMeshAgent> ();
 		randomPosition = Random.insideUnitSphere * radius;
@@ -230,11 +231,23 @@ public class EnemyMovement : MonoBehaviour
         //    }
         //}
         
-
+/*
 		if (rigidbody.velocity.sqrMagnitude >= 1.1f)
 			anim.SetFloat ("Speed", 1);
 		else if (rigidbody.velocity.sqrMagnitude <= 1.0f)
 			anim.SetFloat ("Speed", 0);
+			*/
+		if (nav.velocity.magnitude == 0)
+		{
+			anim.SetFloat("Speed", 0);
+			
+		}
+		
+		else if(nav.velocity.sqrMagnitude > 1)
+		{
+			anim.SetFloat("Speed", 1);
+			//transform.rotation = Quaternion.LookRotation(characterManager.selectedLeader.transform.position * Time.deltaTime * 5.0f);
+		}
 
 	}
 }

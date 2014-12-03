@@ -281,7 +281,7 @@ public class EnemyChar : MonoBehaviour {
                         expbar.GetComponent<Experience>().getExperience(30);
                         break;
                     case 4:
-                        expbar.GetComponent<Experience>().getExperience(1000);
+                        expbar.GetComponent<Experience>().getExperience(50);
                         break;
                 }
                 Destroy(this.gameObject);

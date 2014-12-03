@@ -544,12 +544,11 @@ public class Movements : MonoBehaviour
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha3)) ///skill 3
 				{
-<<<<<<< HEAD
+
 					ManaCost = 105;
 					if(Mana >= ManaCost)
 					{
-=======
->>>>>>> origin/master
+
                     Vector3 Fist_Pos = transform.position + new Vector3 (0.0f, 2.0f, 0.0f);
 
                     Instantiate(Fist_Skill3Particle, Fist_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
@@ -908,6 +907,18 @@ public class Movements : MonoBehaviour
 			navmesh.stoppingDistance = 2.0f;
 			navmesh.SetDestination(enemyTarget.transform.position);
 		}
+
+		/* AI attack
+		Collider[] col2 = Physics.OverlapSphere(transform.position, 2.0f);
+		foreach (Collider collide in col2)
+		{
+			if(collide.gameObject.tag == "Enemy")
+			{
+				animator.SetTrigger("Attack");
+				InflictDamage(100,this.transform.position, 0.9f);
+			}
+		}
+		*/
 	}
 
 	void InflictDamage(float dmg, Vector3 center, float radius)
@@ -954,10 +965,6 @@ public class Movements : MonoBehaviour
 				enemyHPSlider.value =  collide.transform.gameObject.GetComponent<EnemyChar>().HP;
 				//Debug.Log("DAMAGE: " + enemyHPSlider.value);
 				}
-
-				
-
-
 
 			}		
 				            		
