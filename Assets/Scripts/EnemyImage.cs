@@ -32,43 +32,43 @@ public class EnemyImage : MonoBehaviour {
 		switch (enemyType) {
 
 		case "Enemy_Golem": //Golem
-			EnemyTexture = Resources.Load<Texture>("Golem");
+			EnemyTexture = Resources.Load<Texture>("greygolem");
 			break;
 
 		case "Enemy_Golem(Clone)": //Golem
-			EnemyTexture = Resources.Load<Texture>("Golem");
+			EnemyTexture = Resources.Load<Texture>("greygolem");
 			break;
 
 		case "MudGolem 1": //Taong Lupa
-			EnemyTexture = Resources.Load<Texture>("MudGolem1");
+			EnemyTexture = Resources.Load<Texture>("browngolem");
 			break;
 
 		case "MudGolem 2": //Taong Lupa
-			EnemyTexture = Resources.Load<Texture>("MudGolem2");
+			EnemyTexture = Resources.Load<Texture>("browngolem");
 			break;
 		
 		case "MudGolem 3": //Taong Lupa
-			EnemyTexture = Resources.Load<Texture>("MudGolem3");
+			EnemyTexture = Resources.Load<Texture>("browngolem");
 			break;
 
 		case "MudGolem 1(Clone)": //Taong Lupa
-			EnemyTexture = Resources.Load<Texture>("MudGolem1");
+            EnemyTexture = Resources.Load<Texture>("browngolem");
 			break;
 			
 		case "MudGolem 2(Clone)": //Taong Lupa
-			EnemyTexture = Resources.Load<Texture>("MudGolem2");
+            EnemyTexture = Resources.Load<Texture>("browngolem");
 			break;
 			
 		case "MudGolem 3(Clone)": //Taong Lupa
-			EnemyTexture = Resources.Load<Texture>("MudGolem3");
+            EnemyTexture = Resources.Load<Texture>("browngolem");
 			break;
 
 		case "SpikeMushroom": //Spikes
-			EnemyTexture = Resources.Load<Texture>("SpikeMushroom");
+			EnemyTexture = Resources.Load<Texture>("mashroomspike");
 			break;
 
 		case "PurpleMushroom": //Poison
-			EnemyTexture = Resources.Load<Texture>("PoisonMushroom");
+			EnemyTexture = Resources.Load<Texture>("mashroompoison");
 			break;
 
 		case "Empty":

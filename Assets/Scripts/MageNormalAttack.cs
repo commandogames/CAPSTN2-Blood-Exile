@@ -36,7 +36,8 @@ public class MageNormalAttack : MonoBehaviour {
 			EnemyImage.GetComponent<RawImage>().GetComponent<EnemyImage>().EnemyPortrait(col.gameObject.name);
             col.gameObject.GetComponent<EnemyChar>().inflictDamage(mageDmg);      
 			Debug.Log(mageDmg);
-			enemyHPSlider.value = col.transform.gameObject.GetComponent<EnemyChar>().HP;	
+			enemyHPSlider.value = col.transform.gameObject.GetComponent<EnemyChar>().HP;
+            Destroy(gameObject);
         }
         
 	}	

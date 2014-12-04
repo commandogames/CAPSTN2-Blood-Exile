@@ -4,7 +4,7 @@ using System.Collections;
 
 public class FighterSkill2 : MonoBehaviour {
 	
-	public float speed = 0.5f;
+	
 	public float damage;
 	public float fighterskilldmg;
 	public GameObject EnemyImage;

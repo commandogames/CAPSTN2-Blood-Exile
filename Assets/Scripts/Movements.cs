@@ -643,23 +643,18 @@ public class Movements : MonoBehaviour
                 #endregion
                 if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1"))///skill 1
 				{
-                    Vector3 Mage_Pos = transform.position + new Vector3(0.0f, 0.0f, 4.0f);
-                  
-
-                    
 					ManaCost = 75;
 					if(Mana >= ManaCost)
 					{
-                     float Mage_Skill1 = 0.0f + Time.deltaTime;
-                    Mage_GravelSwainParticle.GetComponent<ParticleSystem>().Play();
+             
+                         Vector3 Mage_Pos = transform.position + new Vector3(-2.0f, 10.0f, 4.0f);
+                         Instantiate(Mage_Skill1Particle, Mage_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                   
                    
 					SkillAttack(this.transform.position, 0.9f, 7);
 					animator.SetTrigger("Skill 1");
                     Mage_GravelSwainActive = true;
-                    if (Mage_Skill1 >= 1.5f)
-                    {
-                        Instantiate(Mage_Skill1Particle, Mage_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-                    }
+                   
 						Mana -= ManaCost;
 					}
                   
