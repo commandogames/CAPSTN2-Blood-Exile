@@ -34,7 +34,8 @@ public class FighterSkill2 : MonoBehaviour {
 			EnemyImage.SetActive (true);
 			EnemyImage.GetComponent<RawImage>().GetComponent<EnemyImage>().EnemyPortrait(col.gameObject.name);
 			col.gameObject.GetComponent<EnemyChar>().inflictDamage(fighterskilldmg);      
-			enemyHPSlider.value = col.transform.gameObject.GetComponent<EnemyChar>().HP;	
+			enemyHPSlider.value = col.transform.gameObject.GetComponent<EnemyChar>().HP;
+            Destroy(gameObject);
 		}
 		
 	}	

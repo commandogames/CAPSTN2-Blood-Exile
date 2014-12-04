@@ -77,6 +77,7 @@ public class Movements : MonoBehaviour
     public GameObject Mage_OutburstParticle;
     public GameObject Mage_NormalAttackParticleIns;
     public GameObject Mage_NormalBurst;
+    public GameObject Mage_Skill1Particle;
     public Transform WandPos;
 
     public Vector3 Mage_Position;
@@ -642,15 +643,26 @@ public class Movements : MonoBehaviour
                 #endregion
                 if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("Skill 1"))///skill 1
 				{
+                    Vector3 Mage_Pos = transform.position + new Vector3(0.0f, 0.0f, 4.0f);
+                  
+
+                    
 					ManaCost = 75;
 					if(Mana >= ManaCost)
 					{
+                     float Mage_Skill1 = 0.0f + Time.deltaTime;
                     Mage_GravelSwainParticle.GetComponent<ParticleSystem>().Play();
+                   
 					SkillAttack(this.transform.position, 0.9f, 7);
 					animator.SetTrigger("Skill 1");
                     Mage_GravelSwainActive = true;
+                    if (Mage_Skill1 >= 1.5f)
+                    {
+                        Instantiate(Mage_Skill1Particle, Mage_Pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                    }
 						Mana -= ManaCost;
 					}
+                  
 				}
 				if (Input.GetKeyDown(KeyCode.Alpha2)) ///skill 2
 				{
