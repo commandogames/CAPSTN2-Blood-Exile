@@ -171,7 +171,7 @@ public class Movements : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		Debug.Log(skillPoints);
+//		Debug.Log(skillPoints);
 		statenable = GameObject.Find ("Exp").GetComponent<Experience> ().isLevelup; 
 
 		//enemyHealthObject.SetActive(false);	
@@ -482,7 +482,9 @@ public class Movements : MonoBehaviour
 					ManaCost = 120;
 					if(Mana >= ManaCost)
 					{
-					SkillAttack(this.transform.position, 0.9f, 3);
+					//SkillAttack(this.transform.position, 0.9f, 3);
+					if(isAttacking == false)
+						StartCoroutine(knightSkill3AttackTime(0.6f));
 					animator.SetTrigger("Skill 3");
 						Mana -= ManaCost;
 					}
@@ -729,12 +731,38 @@ public class Movements : MonoBehaviour
 
     IEnumerator delayedRaycast(float delay)
     {
+		isAttacking = true;
         yield return new WaitForSeconds(delay);
         GameObject burst = (GameObject)Instantiate(Mage_NormalAttackParticle, WandPos.transform.position, transform.rotation);
-        burst.rigidbody.AddForce(transform.forward * 600);
-    }
+        //burst.rigidbody.AddForce(transform.forward * 600);
+		Destroy(burst, 0.3f);
+		isAttacking = false;
+    }	
 
-   
+	IEnumerator playerAttackTime(float delay)
+	{
+		isAttacking = true;
+		yield return new WaitForSeconds(delay);
+		InflictDamage (100, this.transform.position, 0.9f);
+		isAttacking = false;
+	}
+
+
+
+	IEnumerator knightSkill3AttackTime(float delay)
+	{
+		isAttacking = true;
+		yield return new WaitForSeconds(delay);
+		SkillAttack(this.transform.position, 0.9f, 3);
+		yield return new WaitForSeconds(delay);
+		SkillAttack(this.transform.position, 0.9f, 3);
+		yield return new WaitForSeconds(delay);
+		SkillAttack(this.transform.position, 0.9f, 3);
+		isAttacking = false;
+	}
+
+	public bool isAttacking =false;
+
 	void AttackMovements()
 	{
 		#region Fighter Attacks
@@ -745,10 +773,11 @@ public class Movements : MonoBehaviour
 				normalAttackTimer += Time.deltaTime;
 				if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.G))
 				{
-
 					Fist_PunchParticle.GetComponent<ParticleSystem>().Play();
                     Fist_PunchParticleActive = true;
-					InflictDamage(100, this.transform.position, 0.9f);
+					if(isAttacking == false)
+					StartCoroutine(playerAttackTime(0.6f));
+					//InflictDamage(100, this.transform.position, 0.9f);
 					animator.SetFloat("Fighter_AttackCooldown", normalAttackTimer);
 					animator.SetInteger("Fighter_AttackCombo", attackOrder);
 					attackOrder += 1;
@@ -786,8 +815,10 @@ public class Movements : MonoBehaviour
 			{
 				normalAttackTimer += Time.deltaTime;
 				if (Input.GetButtonDown("Attack") || Input.GetKeyDown(KeyCode.G))
-				{
-					InflictDamage(100, this.transform.position, 1.0f);
+				{	
+					if(isAttacking == false)
+					StartCoroutine(playerAttackTime(0.5f));
+					//InflictDamage(100, this.transform.position, 1.0f);
 					animator.SetFloat("Fighter_AttackCooldown", normalAttackTimer);
 					animator.SetInteger("Fighter_AttackCombo", attackOrder);
 					attackOrder += 1;
@@ -829,7 +860,7 @@ public class Movements : MonoBehaviour
                     //StartCoroutine(mageNormalAttack(0.6f));
                     //GameObject burst = (GameObject)Instantiate(Mage_NormalAttackParticle, WandPos.transform.position, transform.rotation);
                     //Destroy(burst, 1.9f);
-                    StartCoroutine(delayedRaycast(0.9f));
+                   // StartCoroutine(delayedRaycast(0.9f));
 
 					animator.SetFloat("Fighter_AttackCooldown", normalAttackTimer);
 					animator.SetInteger("Fighter_AttackCombo", attackOrder);
@@ -905,7 +936,18 @@ public class Movements : MonoBehaviour
 		foreach (Collider collide in col)
 		{
 			if(collide.gameObject.tag == "Enemy")
+			{
 				newTarget = collide.gameObject;
+
+				if(this.gameObject.name == "Mage" && isAttacking == false)
+			{
+				this.transform.LookAt(collide.transform);
+				animator.SetTrigger("Attack");
+				StartCoroutine(delayedRaycast(0.5f));
+					navmesh.stoppingDistance = 2.0f;
+			}
+
+			}
 		}
 		
 		if (newTarget != null)
@@ -915,17 +957,28 @@ public class Movements : MonoBehaviour
 			navmesh.SetDestination(enemyTarget.transform.position);
 		}
 
-		/* AI attack
+
+
+		 //AI attack
 		Collider[] col2 = Physics.OverlapSphere(transform.position, 2.0f);
 		foreach (Collider collide in col2)
 		{
 			if(collide.gameObject.tag == "Enemy")
 			{
-				animator.SetTrigger("Attack");
-				InflictDamage(100,this.transform.position, 0.9f);
+				if(this.gameObject.name != "Mage" && isAttacking == false)
+				{
+					//this.transform.LookAt(collide.transform);
+					//animator.SetTrigger("Attack");
+					//StartCoroutine(playerAttackTime(0.5f));
+				}
+
+
+				//InflictDamage(100,this.transform.position, 0.9f);
 			}
 		}
-		*/
+
+	
+
 	}
 
 	void InflictDamage(float dmg, Vector3 center, float radius)
@@ -1027,21 +1080,14 @@ public class Movements : MonoBehaviour
 		}
 	}
 
-	public void Hit()
-	{
-		EnemyImage.SetActive (true);
-		EnemyImage.GetComponent<RawImage>().GetComponent<EnemyImage>().EnemyPortrait("Empty");
-		enemyHPSlider.gameObject.SetActive(true);
-	}
-	
+
 	//------------------------------------------------------------------------------------Damage Calculation-----------------------------------------------------------------------
 	public float HP;
 	public float baseDmg = 0f;
 	public float magicDmg;
 	public float agi;
 	public float def;
-
-
+	
 	public bool skillActive;
 	
 	float skillCounter;
@@ -1165,7 +1211,7 @@ public class Movements : MonoBehaviour
 		}
 		case 3: //Defile Slash
 		{
-			skillDmg = 150 + (magicDmg * 0.30f) + (agi * 0.50f);
+			skillDmg = (150 + (magicDmg * 0.30f) + (agi * 0.50f))/3;
 			break;
 		}
 			
@@ -1234,7 +1280,7 @@ public class Movements : MonoBehaviour
 		else 
 			HP = maxHp;
 
-		regenmana = (Mana * 0.07f) + ((magicDmg * 0.05f) + (agi * 0.03f));
+		regenmana = (maxMana * 0.07f) + ((magicDmg * 0.05f) + (agi * 0.03f));
 		if ((Mana + regenmana) < maxMana) 
 			Mana += regenmana; 
 		else 

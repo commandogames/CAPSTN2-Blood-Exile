@@ -145,10 +145,9 @@ public class EnemyMovement : MonoBehaviour
             {
                 attackTimer += Time.deltaTime;
                 //Debug.Log(Vector3.Distance(player.transform.position, transform.position));
-                
-                
+                                
                 randomIndex = Random.Range(0, 10);
-				if(gameObject.name == "MudGolem 1" ||gameObject.name == "MudGolem 2(Clone)" || gameObject.name == "MudGolem 3(Clone)")
+				if(gameObject.name == "MudGolem 1" ||gameObject.name == "MudGolem 1(Clone)" ||gameObject.name == "MudGolem 2(Clone)" || gameObject.name == "MudGolem 3(Clone)")
 				{
 					if (attackTimer >= rate)
 					{
@@ -169,7 +168,6 @@ public class EnemyMovement : MonoBehaviour
 							anim.SetTrigger("Attack3");
 							Target.gameObject.GetComponent<Movements> ().Hurt (100);
 						}
-
 						//player.GetComponent<Animator>().SetTrigger("Hurt");
 						attackTimer = 0;
 						randomIndex = Random.Range(1, 10);
@@ -177,7 +175,6 @@ public class EnemyMovement : MonoBehaviour
 					}
 
 				}
-
 
 
 				else if(player != null && player.tag == "Player")
