@@ -11,9 +11,6 @@ public class EnemyImage : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		EnemyIcon = GetComponent<RawImage> ();
-	
-
-
 
 	}
 	
