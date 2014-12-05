@@ -155,7 +155,6 @@ public class Movements : MonoBehaviour
         {
             Mage_AlleviateHealParticle.GetComponent<ParticleSystem>().Stop();
             Mage_NormalAttackParticle.GetComponent<ParticleSystem>().Stop();
-            Mage_GravelSwainParticle.GetComponent<ParticleSystem>().Stop();
             Mage_OutburstParticle.GetComponent<ParticleSystem>().Stop();
         }
 
@@ -171,7 +170,12 @@ public class Movements : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		Debug.Log(skillPoints);
+        if (characterClass == CharacterClass.Fighter)
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Skill 1"))
+                animator.applyRootMotion = true;
+            else animator.applyRootMotion = false;
+
+		//Debug.Log(skillPoints);
 		statenable = GameObject.Find ("Exp").GetComponent<Experience> ().isLevelup; 
 
 		//enemyHealthObject.SetActive(false);	
@@ -230,31 +234,27 @@ public class Movements : MonoBehaviour
 				
 			}
 		}
-		
-		if (dead == false)
-		{
-			if (HP <= 0)
-			{
-                Vector3 Player_pos = transform.position + new Vector3 (0.0f, 1.0f, 0.0f);
+        if (dead == false)
+        {
+            if (HP <= 0)
+            {
+                Vector3 Player_pos = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
 
-                Instantiate(DeathParticle_Player, Player_pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                Instantiate(DeathParticle_Player, Player_pos, Quaternion.identity);
 
-				animator.SetTrigger("Dead");
-				gameObject.tag = "Dead";
-				characterManager.RemoveFromCharacterPool(gameObject);
-				dead = true;
-			}
-		}
-		
-		if (dead == true)
-		{
-			//Destroy(this.gameObject);
-			if (this.HP > 0)
-			{
-				gameObject.tag = "Player";
-				dead = false;
-			}
-		}
+                animator.SetTrigger("Dead");
+                gameObject.tag = "Dead";
+                characterManager.RemoveFromCharacterPool(gameObject);
+                dead = true;
+                
+            }
+            
+            else dead = false;
+        }
+
+        
+        
+        
 		
 		if (characterManager.selectedLeader != this.gameObject)
 			isLeader = false;
@@ -601,7 +601,6 @@ public class Movements : MonoBehaviour
 
                 if (Mage_GravelSwainActive == false)
                 {
-                    Mage_GravelSwainParticle.GetComponent<ParticleSystem>().Stop();
                     Mage_GravelSwainTimer = 0f;
                 }
 

@@ -49,6 +49,7 @@ public class CharacterManager : MonoBehaviour
     {
         Debug.Log(deadCharacaters[0].name.ToString());
         deadCharacaters[0].GetComponent<Movements>().HP = deadCharacaters[0].GetComponent<Movements>().maxHp;
+        deadCharacaters[0].GetComponent<Movements>().animator.SetTrigger("Alive");
         deadCharacaters[0].GetComponent<Movements>().dead = false;
         deadCharacaters[0].GetComponent<Movements>().navmesh.enabled = true;
         deadCharacaters[0].transform.position = respawnPoint.transform.position;
